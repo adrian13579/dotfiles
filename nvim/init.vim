@@ -2,6 +2,9 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 let g:python3_host_prog= '/root/anaconda3/bin/python3'
 
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+
 Plug 'akinsho/nvim-bufferline.lua'
 
 Plug 'nvim-lua/plenary.nvim'
@@ -125,7 +128,7 @@ xmap <Leader>di <Plug>VimspectorBalloonEval
 
 
 "buffer switching
-nnoremap <Leader>b :buffer<Space>
+nnoremap <Leader>b :Buffers<CR>
 
 "let g:nvim_tree_side = 'right' "left by default
 let g:nvim_tree_width = 40 "30 by default, can be width_in_columns or 'width_in_percent%'
