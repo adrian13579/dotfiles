@@ -1,9 +1,12 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-let g:python3_host_prog= '/root/anaconda3/bin/python3'
+"let g:python3_host_prog= '/root/anaconda3/bin/python3'
+"let g:python3_host_prog= '/usr/bin/python3.9'
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+
+Plug 'szw/vim-maximizer'
 
 Plug 'akinsho/nvim-bufferline.lua'
 
@@ -73,6 +76,12 @@ tnoremap <Esc> <C-\><C-n>
 "go to normal mode from insert
 inoremap jk <ESC>
 
+
+"maximize current split or return to previous
+nnoremap <C-w>m :MaximizerToggle<CR>
+tnoremap <C-w>m :MaximizerToggle<CR>
+
+
 "fuzzy finder 
 nnoremap <C-p> :FZF<CR>
 let g:fzf_action = {
@@ -129,6 +138,8 @@ xmap <Leader>di <Plug>VimspectorBalloonEval
 
 "buffer switching
 nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>n :bn<CR>
+nnoremap <Leader>p :bp<CR>
 
 "let g:nvim_tree_side = 'right' "left by default
 let g:nvim_tree_width = 40 "30 by default, can be width_in_columns or 'width_in_percent%'
@@ -216,7 +227,7 @@ let g:nvim_tree_icons = {
 
 nnoremap <C-n> :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
-nnoremap <leader>n :NvimTreeFindFile<CR>
+"nnoremap <leader>n :NvimTreeFindFile<CR>
 " NvimTreeOpen and NvimTreeClose are also available if you need them
 
 set termguicolors " this variable must be enabled for colors to be applied properly
