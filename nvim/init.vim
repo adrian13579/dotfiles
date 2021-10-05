@@ -13,8 +13,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-Plug 'mattn/emmet-vim'
-
 Plug 'hoob3rt/lualine.nvim'
 
 Plug 'jiangmiao/auto-pairs'
@@ -26,8 +24,6 @@ Plug 'sbdchd/neoformat'
 Plug 'kyazdani42/nvim-web-devicons' 
 
 Plug 'ful1e5/onedark.nvim'
-
-Plug 'sheerun/vim-polyglot'
 
 Plug 'kyazdani42/nvim-tree.lua'
 
@@ -224,7 +220,6 @@ require'nvim-tree'.setup {
   }
 }
 EOF
-"let g:nvim_tree_side = 'right' "left by default
 let g:nvim_tree_ignore = [ '.git', '.cache' ] "empty by default
 let g:nvim_tree_gitignore = 0 "0 by default
 let g:nvim_tree_auto_ignore_ft = [ 'startify', 'dashboard' ] "empty by default, don't auto open tree on specific filetypes.
@@ -233,8 +228,8 @@ let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent marke
 let g:nvim_tree_hide_dotfiles = 0 "0 by default, this option hides files and folders starting with a dot `.`
 let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
 let g:nvim_tree_highlight_opened_files = 1 "0 by default, will enable folder and file icon highlight for opened files/directories.
-let g:nvim_tree_root_folder_modifier = ':~' "This is the default. See :help filename-modifiers for more options
-let g:nvim_tree_add_trailing = 1 "0 by default, append a trailing slash to folder names
+let g:nvim_tree_root_folder_modifier = ':e'" This is the default. See :help filename-modifiers for more options
+let g:nvim_tree_add_trailing = 0 "0 by default, append a trailing slash to folder names
 let g:nvim_tree_group_empty = 1 " 0 by default, compact folders that only contain a single folder into one node in the file tree
 let g:nvim_tree_disable_window_picker = 1 "0 by default, will disable the window picker.
 let g:nvim_tree_icon_padding = ' ' "one space by default, used for rendering the space between the icon and the filename. Use with caution, it could break rendering if you set an empty string depending on your font.
@@ -299,7 +294,6 @@ let g:nvim_tree_icons = {
 
 nnoremap <C-n> :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
-"nnoremap <leader>n :NvimTreeFindFile<CR>
 " NvimTreeOpen and NvimTreeClose are also available if you need them
 
 set termguicolors " this variable must be enabled for colors to be applied properly
@@ -418,7 +412,7 @@ require('bufferline').setup {
         return true
       end
     end,
-    offsets = {{filetype = "NvimTree", text = "File Explorer" , text_align =  "center" }},
+    offsets = {{filetype = "NvimTree", text = "" , text_align =  "center" }},
     show_buffer_icons = true,-- | false, -- disable filetype icons for buffers
     show_buffer_close_icons = true,-- | false,
     show_close_icon = true,-- | false,
@@ -434,5 +428,21 @@ require('bufferline').setup {
      -- return buffer_a.modified > buffer_b.modified
 --    end
   }
+}
+EOF
+
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ignore_install = {"jsonc"},
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
 }
 EOF
