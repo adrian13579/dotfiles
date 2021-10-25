@@ -1,7 +1,10 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
+Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
+
+Plug 'ChristianChiarulli/vim-solidity'
+
+Plug 'mhartington/formatter.nvim'
 
 Plug 'akinsho/nvim-bufferline.lua'
 
@@ -17,9 +20,7 @@ Plug 'hoob3rt/lualine.nvim'
 
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'scrooloose/nerdcommenter'
-
-Plug 'sbdchd/neoformat'
+Plug 'preservim/nerdcommenter'
 
 Plug 'kyazdani42/nvim-web-devicons' 
 
@@ -39,18 +40,32 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver','coc-pyright']
 call plug#end()
 
-
-if (has("termguicolors"))
- set termguicolors
-endif
+" Basic settings
 syntax enable
-
 set relativenumber
 set number
+set cursorline
+set pumheight=10
+set cmdheight=2
+set shiftwidth=0
+set tabstop=4
+set smarttab
+set showtabline=2
+set clipboard=unnamedplus
+set updatetime=300
+set timeoutlen=500
+set nobackup
+set nowritebackup
+set noshowmode
+set termguicolors 
+set cuc
+set mouse=a
+let g:mapleader = "\<Space>"
 
-lua require('onedark').setup()
-
-let mapleader = "\<Space>"
+" Custom shortcuts
+inoremap <c-space> <Right>
+" open current buffer in new tab
+nnoremap <Leader>m :tabnew %<CR>
 
 "use C+hjkl to move between split/vsplit panels
 tnoremap <C-h> <C-\><C-n><C-w>h
@@ -61,6 +76,12 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+		
+"use alt+hjkl to resize window
+nnoremap <M-j> :resize +2<CR>
+nnoremap <M-k> :resize -2<CR>
+nnoremap <M-h> :vertical resize +2<CR>
+nnoremap <M-l> :vertical resize -2<CR>
 
 "go to normal mode in terminal
 tnoremap jk <C-\><C-n>  
@@ -68,6 +89,24 @@ tnoremap <Esc> <C-\><C-n>
 
 "go to normal mode from insert
 inoremap jk <ESC>
+inoremap kj <ESC>
+
+"buffer switching
+nnoremap <TAB> :bn<CR>
+nnoremap <S-TAB> :bp<CR>
+
+" theme
+lua require('onedark').setup()
+" icons
+lua <<EOF
+require("nvim-web-devicons").set_icon {
+  solidity = {
+    icon = "♦",
+    color = "#428850",
+    name = "sol",
+  }
+}
+EOF
 
 "fuzzy finder 
 nnoremap <C-p> :FZF<CR>
@@ -77,15 +116,7 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit'
   \}
 
-set clipboard=unnamedplus
-
-set updatetime=300
-
-
-inoremap <c-space> <Right>
-
-nnoremap <Leader>m :tabnew %<CR>
-
+"CoC settings
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -149,7 +180,25 @@ endif
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
 
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+
+" Vimspector settings
 " mnemonic 'di' = 'debug inspect' (pick your own, if you prefer!)
 " for normal mode - the word under the cursor
 nmap <Leader>di <Plug>VimspectorBalloonEval
@@ -157,10 +206,6 @@ nmap <Leader>di <Plug>VimspectorBalloonEval
 xmap <Leader>di <Plug>VimspectorBalloonEval
 
 
-"buffer switching
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>n :bn<CR>
-nnoremap <Leader>p :bp<CR>
 
 lua << EOF
 require'nvim-tree'.setup()
@@ -183,7 +228,15 @@ require'nvim-tree'.setup {
   -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually) 
   update_cwd          = false,
   -- show lsp diagnostics in the signcolumn
-  lsp_diagnostics     = true,
+  diagnostics = {
+    enable = true,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    }
+  },
   -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
   update_focused_file = {
     -- enables the feature
@@ -193,7 +246,7 @@ require'nvim-tree'.setup {
     update_cwd  = false,
     -- list of buffer names / filetypes that will not update the cwd if the file isn't found under the current root directory
     -- only relevant when `update_focused_file.update_cwd` is true and `update_focused_file.enable` is true
-    ignore_list = {}
+    ignore_list = {'.git/**'}
   },
   -- configuration options for the system open command (`s` in the tree by default)
   system_open = {
@@ -206,6 +259,7 @@ require'nvim-tree'.setup {
   view = {
     -- width of the window, can be either a number (columns) or a string in `%`
     width = 35,
+	height= 30,
     -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
     side = 'left',
     -- if true the tree will resize itself after opening a file
@@ -294,9 +348,7 @@ let g:nvim_tree_icons = {
 
 nnoremap <C-n> :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
-" NvimTreeOpen and NvimTreeClose are also available if you need them
 
-set termguicolors " this variable must be enabled for colors to be applied properly
 
 " a list of groups can be found at `:help nvim_tree_highlight`
 highlight NvimTreeFolderIcon guibg=blue
@@ -306,8 +358,6 @@ require'lualine'.setup {
   options = {
     icons_enabled = true,
     theme = 'onedark',
-    component_separators = {'', ''},
-    section_separators = {'', ''},
     disabled_filetypes = {}
   },
   sections = {
@@ -331,68 +381,30 @@ require'lualine'.setup {
 }
 EOF
 
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
-
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
-
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
-
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
-
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-" Use <leader>x for convert visual selected code to snippet
-xmap <leader>x  <Plug>(coc-convert-snippet)
 
 "gitsigns
 lua require('gitsigns').setup()
-
-"highlight current column
-set cuc
-
-"enable mouse
-set mouse=a
 
 
 lua << EOF
 require('bufferline').setup {
   options = {
     numbers = "buffer_id",-- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
-    --- @deprecated, please specify numbers as a function to customize the styling
-    --number_style = "superscript",-- | "subscript" | "" | { "none", "subscript" }, -- buffer_id at index 1, ordinal at index 2
     close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
     right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
     left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
     middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
-    -- NOTE: this plugin is designed with this icon in mind,
-    -- and so changing this is NOT recommended, this is intended
-    -- as an escape hatch for people who cannot bear it for whatever reason
     indicator_icon = '▎',
     buffer_close_icon = '',
     modified_icon = '●',
     close_icon = '',
     left_trunc_marker = '',
     right_trunc_marker = '',
-    --- name_formatter can be used to change the buffer's label in the bufferline.
-    --- Please note some names can/will break the
-    --- bufferline so use this at your discretion knowing that it has
-    --- some limitations that will *NOT* be fixed.
-    --name_formatter = function(buf)  -- buf contains a "name", "path" and "bufnr"
-    --  -- remove extension from markdown files for example
-    --  if buf.name:match('%.md') then
-    --    return vim.fn.fnamemodify(buf.name, ':t:r')
-    --  end
-    --end,
     max_name_length = 18,
     max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
     tab_size = 18,
     diagnostics = "coc",-- | "nvim_lsp" | "coc",
-    diagnostics_update_in_insert = false,
+    diagnostics_update_in_insert = true,
     diagnostics_indicator = function(count, level, diagnostics_dict, context)
       return "("..count..")"
     end,
@@ -424,9 +436,6 @@ require('bufferline').setup {
     enforce_regular_tabs = false,-- | true,
     always_show_bufferline = true ,--| false,
     sort_by = 'id',-- | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
-      -- add custom logic
-     -- return buffer_a.modified > buffer_b.modified
---    end
   }
 }
 EOF
@@ -435,14 +444,59 @@ EOF
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ignore_install = {"jsonc"},
   highlight = {
     enable = true,              -- false will disable the whole extension
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
   },
 }
+
 EOF
+
+" Provided by setup function
+nnoremap <silent> <leader>f :Format<CR>
+
+lua <<EOF
+prettier_config = {
+      function()
+        return {
+          exe = "npx prettier",
+		  args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+          stdin = true
+        }
+      end
+    }
+
+require'formatter'.setup({
+  filetype = {
+	 solidity = {
+		function()
+	 		return {
+			 exe = "npx prettier",
+			 args = {"--write",vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+			 stdin = false
+			}
+		  end},
+    javascript =  prettier_config,
+    javascriptreact = prettier_config,
+    typescriptreact = prettier_config,
+    typescript = prettier_config,
+	json = prettier_config,
+	css = prettier_config,
+	python = {
+      function()
+        return {
+          exe = "black",
+		  args = {vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+		  stdin = false
+        }
+      end
+    }
+		
+  }
+})
+EOF
+
+
+filetype plugin on
+let g:NERDCustomDelimiters = { 'tsx': { 'left': '{/*','right': '*/}' }, 'jsx': { 'left': '{/*','right': '*/}' }}
+
