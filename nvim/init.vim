@@ -4,6 +4,8 @@ Plug 'karoliskoncevicius/vim-sendtowindow'
 
 Plug 'ChristianChiarulli/vim-solidity'
 
+Plug 'b3nj5m1n/kommentary'
+
 Plug 'mhartington/formatter.nvim'
 
 Plug 'akinsho/nvim-bufferline.lua'
@@ -19,12 +21,9 @@ Plug 'hoob3rt/lualine.nvim'
 
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'preservim/nerdcommenter'
-
 Plug 'kyazdani42/nvim-web-devicons' 
 
 Plug 'ful1e5/onedark.nvim'
-Plug 'shaunsingh/nord.nvim'
 
 Plug 'kyazdani42/nvim-tree.lua'
 
@@ -95,18 +94,15 @@ nnoremap <S-TAB> :bp<CR>
 "delete buffers
 nnoremap <Leader>d :bd<Space>
 
-" icons
-lua <<EOF
-require("nvim-web-devicons").set_default_icon('', '#6d8086')
-EOF
 
 " theme
-"lua require('onedark').setup()
-let g:nord_contrast = v:true
-let g:nord_borders = v:true
-let g:nord_disable_background = v:false
-let g:nord_italic = v:true
-colorscheme nord
+lua <<EOF
+require('onedark').setup{
+	dark_sidebar = false,
+	variable_style = "bold",
+	function_style = "italic"
+}
+EOF
 
 " Telescope settings
 " Find files using Telescope command-line sugar.
@@ -257,7 +253,7 @@ require'nvim-tree'.setup {
 
   view = {
     -- width of the window, can be either a number (columns) or a string in `%`
-    width = 35,
+    width = 30,
 	height= 30,
     -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
     side = 'left',
@@ -274,7 +270,7 @@ require'nvim-tree'.setup {
 }
 EOF
 let g:nvim_tree_ignore = [ '.git','node_modules', '.cache' ] "empty by default
-let g:nvim_tree_gitignore = 1 "0 by default
+let g:nvim_tree_gitignore = 0 "0 by default
 let g:nvim_tree_auto_ignore_ft = [ 'startify', 'dashboard' ] "empty by default, don't auto open tree on specific filetypes.
 let g:nvim_tree_quit_on_open = 1 "0 by default, closes the tree when you open a file
 let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
@@ -355,7 +351,7 @@ lua << EOF
 require'lualine'.setup {
   options = {
     icons_enabled = true,
-    theme = 'nord',
+    theme = 'onedark',
     disabled_filetypes = {}
   },
   sections = {
@@ -493,8 +489,4 @@ require'formatter'.setup({
   }
 })
 EOF
-
-
-filetype plugin on
-let g:NERDCustomDelimiters = { 'tsx': { 'left': '{/*','right': '*/}' }, 'jsx': { 'left': '{/*','right': '*/}' }}
 
