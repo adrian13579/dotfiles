@@ -1,6 +1,6 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'jalvesaq/Nvim-R', {'branch': 'stable'}
+Plug 'karoliskoncevicius/vim-sendtowindow'
 
 Plug 'ChristianChiarulli/vim-solidity'
 
@@ -13,8 +13,7 @@ Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'hoob3rt/lualine.nvim'
 
@@ -25,6 +24,7 @@ Plug 'preservim/nerdcommenter'
 Plug 'kyazdani42/nvim-web-devicons' 
 
 Plug 'ful1e5/onedark.nvim'
+Plug 'shaunsingh/nord.nvim'
 
 Plug 'kyazdani42/nvim-tree.lua'
 
@@ -37,7 +37,6 @@ let g:vimspector_enable_mappings = 'HUMAN'
 let g:vimspector_install_gadgets = ['debugpy']
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver','coc-pyright']
 call plug#end()
 
 " Basic settings
@@ -62,8 +61,6 @@ set cuc
 set mouse=a
 let g:mapleader = "\<Space>"
 
-" Custom shortcuts
-inoremap <c-space> <Right>
 " open current buffer in new tab
 nnoremap <Leader>m :tabnew %<CR>
 
@@ -95,28 +92,31 @@ inoremap kj <ESC>
 nnoremap <TAB> :bn<CR>
 nnoremap <S-TAB> :bp<CR>
 
-" theme
-lua require('onedark').setup()
+"delete buffers
+nnoremap <Leader>d :bd<Space>
+
 " icons
 lua <<EOF
-require("nvim-web-devicons").set_icon {
-  solidity = {
-    icon = "♦",
-    color = "#428850",
-    name = "sol",
-  }
-}
+require("nvim-web-devicons").set_default_icon('', '#6d8086')
 EOF
 
-"fuzzy finder 
-nnoremap <C-p> :FZF<CR>
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit'
-  \}
+" theme
+"lua require('onedark').setup()
+let g:nord_contrast = v:true
+let g:nord_borders = v:true
+let g:nord_disable_background = v:false
+let g:nord_italic = v:true
+colorscheme nord
+
+" Telescope settings
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 "CoC settings
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver','coc-pyright']
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -208,7 +208,6 @@ xmap <Leader>di <Plug>VimspectorBalloonEval
 
 
 lua << EOF
-require'nvim-tree'.setup()
 -- following options are the default
 require'nvim-tree'.setup {
   -- disables netrw completely
@@ -243,7 +242,7 @@ require'nvim-tree'.setup {
     enable      = true,
     -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
     -- only relevant when `update_focused_file.enable` is true
-    update_cwd  = false,
+    update_cwd  = true,
     -- list of buffer names / filetypes that will not update the cwd if the file isn't found under the current root directory
     -- only relevant when `update_focused_file.update_cwd` is true and `update_focused_file.enable` is true
     ignore_list = {'.git/**'}
@@ -274,17 +273,17 @@ require'nvim-tree'.setup {
   }
 }
 EOF
-let g:nvim_tree_ignore = [ '.git', '.cache' ] "empty by default
-let g:nvim_tree_gitignore = 0 "0 by default
+let g:nvim_tree_ignore = [ '.git','node_modules', '.cache' ] "empty by default
+let g:nvim_tree_gitignore = 1 "0 by default
 let g:nvim_tree_auto_ignore_ft = [ 'startify', 'dashboard' ] "empty by default, don't auto open tree on specific filetypes.
-let g:nvim_tree_quit_on_open = 0 "0 by default, closes the tree when you open a file
+let g:nvim_tree_quit_on_open = 1 "0 by default, closes the tree when you open a file
 let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
 let g:nvim_tree_hide_dotfiles = 0 "0 by default, this option hides files and folders starting with a dot `.`
 let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
 let g:nvim_tree_highlight_opened_files = 1 "0 by default, will enable folder and file icon highlight for opened files/directories.
-let g:nvim_tree_root_folder_modifier = ':e'" This is the default. See :help filename-modifiers for more options
+let g:nvim_tree_root_folder_modifier = ':e'
 let g:nvim_tree_add_trailing = 0 "0 by default, append a trailing slash to folder names
-let g:nvim_tree_group_empty = 1 " 0 by default, compact folders that only contain a single folder into one node in the file tree
+let g:nvim_tree_group_empty = 0 " 0 by default, compact folders that only contain a single folder into one node in the file tree
 let g:nvim_tree_disable_window_picker = 1 "0 by default, will disable the window picker.
 let g:nvim_tree_icon_padding = ' ' "one space by default, used for rendering the space between the icon and the filename. Use with caution, it could break rendering if you set an empty string depending on your font.
 let g:nvim_tree_symlink_arrow = ' >> ' " defaults to ' ➛ '. used as a separator between symlinks' source and target.
@@ -315,9 +314,8 @@ let g:nvim_tree_show_icons = {
 "but this will not work when you set indent_markers (because of UI conflict)
 
 " default will show icon by default if no icon is provided
-" default shows no icon by default
+" default shows no icon by default 
 let g:nvim_tree_icons = {
-    \ 'default': '',
     \ 'symlink': '',
     \ 'git': {
     \   'unstaged': "✗",
@@ -357,7 +355,7 @@ lua << EOF
 require'lualine'.setup {
   options = {
     icons_enabled = true,
-    theme = 'onedark',
+    theme = 'nord',
     disabled_filetypes = {}
   },
   sections = {
