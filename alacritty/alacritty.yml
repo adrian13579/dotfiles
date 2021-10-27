@@ -40,3 +40,5 @@ window:
     lines: 20
   title: Terminal
   dynamic_title: true
+mouse:
+  hide_when_typing: true
