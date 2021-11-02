@@ -1,5 +1,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'adimit/prolog.vim'
+
 Plug 'karoliskoncevicius/vim-sendtowindow'
 
 Plug 'alvan/vim-closetag'
@@ -154,7 +156,7 @@ let g:closetag_shortcut = '>'
 
 " Add > at current position without closing the current tag, default is ''
 "
-let g:closetag_close_shortcut = '<leader>>'
+"let g:closetag_close_shortcut = '<leader>>'
 
 
 " Telescope settings
@@ -288,7 +290,7 @@ require'nvim-tree'.setup {
   -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
   update_focused_file = {
     -- enables the feature
-    enable      = true,
+    enable      = false,
     -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
     -- only relevant when `update_focused_file.enable` is true
     update_cwd  = false,
@@ -404,7 +406,7 @@ lua << EOF
 require'lualine'.setup {
   options = {
     icons_enabled = true,
-    theme = 'onedark',
+    theme = 'onedark-nvim',
     disabled_filetypes = {}
   },
   sections = {
