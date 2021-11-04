@@ -1,5 +1,8 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+
 Plug 'adimit/prolog.vim'
 
 Plug 'karoliskoncevicius/vim-sendtowindow'
@@ -109,7 +112,8 @@ lua <<EOF
 require('onedark').setup{
 	dark_sidebar = false,
 	variable_style = "bold",
-	function_style = "italic"
+	function_style = "italic",
+	keyword_style =  "none"
 }
 EOF
 
