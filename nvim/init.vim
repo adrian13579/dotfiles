@@ -1,5 +1,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'APZelos/blamer.nvim'
+
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
@@ -105,6 +107,10 @@ nnoremap <S-TAB> :bp<CR>
 
 "delete buffers
 nnoremap <Leader>d :bd<Space>
+
+"Blamer settings
+let g:blamer_enabled = 1
+let g:blamer_show_in_insert_modes = 0
 
 
 " theme
