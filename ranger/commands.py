@@ -65,7 +65,7 @@ class my_edit(Command):
 class empty(Command):
     """:empty
 
-    Empties the trash directory 
+    Empties the trash directory ~/.Trash
     """
 
     def execute(self):
