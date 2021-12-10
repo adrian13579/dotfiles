@@ -1,4 +1,4 @@
-background_opacity: 0.95
+background_opacity: 0.98
 colors:
   # Default colors
   primary:
@@ -33,11 +33,11 @@ font:
     family:  Hack 
   normal:
     family: Hack  
-  size: 13.5
+  size: 11
 window:
   dimensions:
-    columns: 80
-    lines: 20
+    columns: 100
+    lines: 30
   title: Terminal
   dynamic_title: true
 mouse:
