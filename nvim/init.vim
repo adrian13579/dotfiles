@@ -1,4 +1,4 @@
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin()
 
 Plug 'alexghergh/nvim-tmux-navigation'
 
@@ -42,10 +42,6 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-Plug 'puremourning/vimspector'
-let g:vimspector_enable_mappings = 'HUMAN'
-let g:vimspector_install_gadgets = ['debugpy']
-
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
@@ -60,7 +56,7 @@ set number
 autocmd TermOpen * setlocal nonumber norelativenumber
 set cursorline
 set pumheight=10
-set cmdheight=2
+set cmdheight=1
 set shiftwidth=0
 set tabstop=4
 set smarttab
@@ -83,7 +79,12 @@ augroup END
 " open current buffer in new tab
 nnoremap <Leader>m :tabnew %<CR>
 
-"use C+hjkl to move between split/vsplit panels
+" next item in quickfix
+nnoremap <Leader>n :cn <CR>
+" previous item in quickfix
+nnoremap <Leader>p :cp <CR>
+
+""use C+hjkl to move between split/vsplit panels
 tnoremap <C-h> <C-\><C-n><C-w>h
 tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
@@ -122,10 +123,10 @@ let g:blamer_show_in_insert_modes = 0
 " theme
 lua <<EOF
 require('onedark').setup{
-	dark_sidebar = false,
-	variable_style = "bold",
-	function_style = "italic",
-	keyword_style =  "none"
+	dark_sidebar = true,
+	--variable_style = "bold",
+	--function_style = "italic",
+	--keyword_style =  "none"
 }
 EOF
 
@@ -273,13 +274,6 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
-" Vimspector settings
-" mnemonic 'di' = 'debug inspect' (pick your own, if you prefer!)
-" for normal mode - the word under the cursor
-nmap <Leader>di <Plug>VimspectorBalloonEval
-" for visual mode, the visually selected text
-xmap <Leader>di <Plug>VimspectorBalloonEval
-
 
 
 lua << EOF
@@ -304,14 +298,15 @@ require'nvim-tree'.setup {
   update_cwd          = false,
   -- show lsp diagnostics in the signcolumn
   diagnostics = {
-    enable = true,
+    enable = false,
     icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
+      hint= "⊖",
+      info= "⊖",
+      warning= "⊕",
+      error= "⊗",
     }
   },
+
   -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
   update_focused_file = {
     -- enables the feature
@@ -350,6 +345,10 @@ require'nvim-tree'.setup {
  filters = {
 	dotfiles = false,
 	custom = { '.git/','node_modules/', '.cache/' }
+  },
+ trash = {
+    cmd = "trash",
+    require_confirm = true
   }
 }
 EOF
@@ -392,6 +391,7 @@ let g:nvim_tree_show_icons = {
 " default will show icon by default if no icon is provided
 " default shows no icon by default 
 let g:nvim_tree_icons = {
+	\ 'default': '',
     \ 'symlink': '',
     \ 'git': {
     \   'unstaged': "✗",
@@ -407,16 +407,16 @@ let g:nvim_tree_icons = {
     \   'arrow_closed': "",
     \   'default': "",
     \   'open': "",
-    \   'empty': "",
-    \   'empty_open': "",
+    \   'empty': "",
+    \   'empty_open': "",
     \   'symlink': "",
     \   'symlink_open': "",
     \   },
     \   'lsp': {
-    \     'hint': "",
-    \     'info': "",
-    \     'warning': "",
-    \     'error': "",
+    \     'hint': "⊖",
+    \     'info': "⊖",
+    \     'warning': "⊕",
+    \     'error': "⊗",
     \   }
     \ }
 
@@ -471,9 +471,9 @@ require('bufferline').setup {
     indicator_icon = '▎',
     buffer_close_icon = '',
     modified_icon = '●',
-    close_icon = '',
-    left_trunc_marker = '',
-    right_trunc_marker = '',
+    close_icon = '',
+    left_trunc_marker = 'ᐊ',
+    right_trunc_marker = 'ᐅ',
     max_name_length = 18,
     max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
     tab_size = 18,
@@ -518,6 +518,7 @@ EOF
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ignore_install = {"jsonc"},
   highlight = {
     enable = true,              -- false will disable the whole extension
     additional_vim_regex_highlighting = false,
