@@ -1,4 +1,3 @@
-background_opacity: 0.98
 colors:
   # Default colors
   primary:
@@ -33,8 +32,9 @@ font:
     family:  Hack 
   normal:
     family: Hack  
-  size: 11
+  size: 10 
 window:
+  opacity: 0.98
   dimensions:
     columns: 100
     lines: 30
