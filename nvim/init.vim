@@ -1,5 +1,8 @@
 call plug#begin()
 
+Plug 'glacambre/firenvim'
+Plug 'goerz/jupytext.vim'
+
 Plug 'alexghergh/nvim-tmux-navigation'
 
 Plug 'APZelos/blamer.nvim'
@@ -509,7 +512,7 @@ require('bufferline').setup {
     -- [focused and unfocused]. eg: { '|', '|' }
     separator_style = "thin",-- | "thick" | "thin" | { 'any', 'any' },
     enforce_regular_tabs = false,-- | true,
-    always_show_bufferline = true ,--| false,
+    always_show_bufferline = false ,--| false,
     sort_by = 'id',-- | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
   }
 }
@@ -572,4 +575,7 @@ require'formatter'.setup({
   }
 })
 EOF
+
+let g:jupytext_enable = 1
+let g:jupytext_fmt = 'py'
 
