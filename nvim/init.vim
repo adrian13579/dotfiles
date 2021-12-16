@@ -592,3 +592,12 @@ EOF
 let g:jupytext_enable = 1
 let g:jupytext_fmt = 'py'
 
+function! OnUIEnter(event) abort
+  if 'Firenvim' ==# get(get(nvim_get_chan_info(a:event.chan), 'client', {}), 'name', '')
+    set laststatus=0
+	set lines=10
+  endif
+endfunction
+autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
+
+au BufEnter colab.research.google.com_*.txt set filetype=python
