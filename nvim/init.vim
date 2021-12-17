@@ -56,10 +56,13 @@ set number
 :  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
 :  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 :augroup END
-autocmd TermOpen * setlocal nonumber norelativenumber
+:augroup nonumberterminal
+:  autocmd!
+:  autocmd TermOpen * setlocal nonumber norelativenumber
+:augroup END
 set cursorline
 set pumheight=10
-set cmdheight=1
+set cmdheight=2
 set shiftwidth=0
 set tabstop=4
 set smarttab
@@ -78,6 +81,12 @@ augroup highlight_yank
     autocmd!
     au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
 augroup END
+
+" open init.vim
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+
+" useful abreviations
+iabbrev @@ adrianportales135@gmail.com
 
 " open current buffer in new tab
 nnoremap <Leader>m :tabnew %<CR>
@@ -109,7 +118,7 @@ tnoremap <Esc> <C-\><C-n>
 
 "go to normal mode from insert
 inoremap jk <ESC>
-inoremap kj <ESC>
+"inoremap kj <ESC>
 
 "buffer switching
 nnoremap <TAB> :bn<CR>
@@ -146,7 +155,7 @@ nnoremap <silent> <C-Space> :lua require'nvim-tmux-navigation'.NvimTmuxNavigateN
 " filenames like *.xml, *.html, *.xhtml, ...
 " These are the file extensions where this plugin is enabled.
 "
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.tsx,*.ts'
 
 " filenames like *.xml, *.xhtml, ...
 " This will make the list of non-closing tags self-closing in the specified files.
@@ -210,6 +219,14 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -222,7 +239,10 @@ function! s:show_documentation()
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+:augroup cursorholdcoc
+:  autocmd!
+:  autocmd CursorHold * silent call CocActionAsync('highlight')
+:augroup END
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -589,15 +609,20 @@ require'formatter'.setup({
 })
 EOF
 
+" jupyter text settings
 let g:jupytext_enable = 1
 let g:jupytext_fmt = 'py'
 
+" set fixed size to firenvim window
 function! OnUIEnter(event) abort
   if 'Firenvim' ==# get(get(nvim_get_chan_info(a:event.chan), 'client', {}), 'name', '')
     set laststatus=0
 	set lines=10
   endif
 endfunction
-autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
+:augroup firevimsettings
+:  autocmd!
+:  autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
+:augroup END
 
 au BufEnter colab.research.google.com_*.txt set filetype=python
