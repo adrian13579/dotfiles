@@ -3,6 +3,8 @@ call plug#begin()
 Plug 'glacambre/firenvim'
 Plug 'goerz/jupytext.vim'
 
+Plug 'karb94/neoscroll.nvim'
+
 Plug 'alexghergh/nvim-tmux-navigation'
 
 Plug 'APZelos/blamer.nvim'
@@ -543,7 +545,7 @@ require('bufferline').setup {
     persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
     -- can also be a table containing 2 custom separators
     -- [focused and unfocused]. eg: { '|', '|' }
-    separator_style = "thin",-- | "thick" | "thin" | { 'any', 'any' },
+    separator_style = "thick",-- | "thick" | "thin" | { 'any', 'any' },
     enforce_regular_tabs = false,-- | true,
     always_show_bufferline = false ,--| false,
     sort_by = 'id',-- | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
@@ -626,3 +628,20 @@ endfunction
 :augroup END
 
 au BufEnter colab.research.google.com_*.txt set filetype=python
+
+
+lua <<EOF
+require('neoscroll').setup({
+    -- All these keys will be mapped to their corresponding default scrolling animation
+    mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
+                '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+    hide_cursor = false,          -- Hide cursor while scrolling
+    stop_eof = true,             -- Stop at <EOF> when scrolling downwards
+    use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
+    respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+    cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+    easing_function = nil,        -- Default easing function
+    pre_hook = nil,              -- Function to run before the scrolling animation starts
+    post_hook = nil,              -- Function to run after the scrolling animation ends
+})
+EOF
