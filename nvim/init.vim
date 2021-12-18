@@ -605,8 +605,16 @@ require'formatter'.setup({
 		  stdin = false
         }
       end
-    }
-		
+    },
+	haskell = {
+		function()
+			return {
+				exe = "ormolu",
+				args = {"--mode","inplace",vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+				stdin= false
+			}
+		end
+	}
   }
 })
 EOF
@@ -622,12 +630,15 @@ function! OnUIEnter(event) abort
 	set lines=10
   endif
 endfunction
-:augroup firevimsettings
-:  autocmd!
-:  autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
-:augroup END
+augroup firevimsettings
+  autocmd!
+  autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
+augroup END
 
-au BufEnter colab.research.google.com_*.txt set filetype=python
+augroup colabcelltype
+  autocmd!
+  autocmd BufEnter colab.research.google.com_*.txt set filetype=python
+augroup END
 
 
 lua <<EOF

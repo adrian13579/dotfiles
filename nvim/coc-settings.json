@@ -30,7 +30,14 @@
         "hs",
         "lhs",
         "haskell"
-      ]
+      ],
+	 "initializationOptions": {
+        "languageServerHaskell": {
+          "hlintOn": true,
+          "maxNumberOfProblems": 10,
+          "completionSnippetsOn": true
+        }
+      }
     }
   }
 }
