@@ -1,5 +1,7 @@
 call plug#begin()
 
+Plug 'moll/vim-bbye'
+
 Plug 'glacambre/firenvim'
 Plug 'goerz/jupytext.vim'
 
@@ -127,7 +129,7 @@ nnoremap <TAB> :bn<CR>
 nnoremap <S-TAB> :bp<CR>
 
 "delete buffers
-nnoremap <Leader>d :bd<Space>
+nnoremap <Leader>d :Bdelete<Space> 
 
 "Blamer settings
 let g:blamer_enabled = 1
@@ -140,7 +142,7 @@ require('onedark').setup{
 	dark_sidebar = true,
 	--variable_style = "bold",
 	--function_style = "italic",
-	--keyword_style =  "none"
+	keyword_style =  "bold"
 }
 EOF
 
@@ -525,34 +527,16 @@ require('bufferline').setup {
     diagnostics_indicator = function(count, level, diagnostics_dict, context)
       return "("..count..")"
     end,
-    -- NOTE: this will be called a lot so don't do any heavy processing here
-    custom_filter = function(buf_number)
-      -- filter out filetypes you don't want to see
-      if vim.bo[buf_number].filetype ~= "<i-dont-want-to-see-this>" then
-        return true
-      end
-      -- filter out by buffer name
-      if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
-        return true
-      end
-      -- filter out based on arbitrary rules
-      -- e.g. filter out vim wiki buffer from tabline in your work repo
-      if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
-        return true
-      end
-    end,
     offsets = {{filetype = "NvimTree", text = "" , text_align =  "center" }},
     show_buffer_icons = true,-- | false, -- disable filetype icons for buffers
     show_buffer_close_icons = true,-- | false,
     show_close_icon = true,-- | false,
     show_tab_indicators = true,-- | false,
     persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-    -- can also be a table containing 2 custom separators
-    -- [focused and unfocused]. eg: { '|', '|' }
     separator_style = "thick",-- | "thick" | "thin" | { 'any', 'any' },
     enforce_regular_tabs = false,-- | true,
     always_show_bufferline = false ,--| false,
-    sort_by = 'id',-- | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
+    sort_by = 'id'
   }
 }
 EOF
