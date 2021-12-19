@@ -1,4 +1,14 @@
 {
+  "diagnostic.errorSign": "",
+  "diagnostic.hintSign": "",
+  "diagnostic.infoSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.messageTarget":"echo",
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "diagnostic.virtualTextPrefix": "● ",
+  "suggest.enablePreview": false,
+  "suggest.triggerAfterInsertEnter": true,
   "languageserver": {
     "prolog-lsp": {
       "command": "swipl",

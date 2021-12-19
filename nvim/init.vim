@@ -18,7 +18,7 @@ Plug 'karoliskoncevicius/vim-sendtowindow'
 
 Plug 'alvan/vim-closetag'
 
-Plug 'ChristianChiarulli/vim-solidity'
+Plug 'tomlion/vim-solidity'
 
 Plug 'b3nj5m1n/kommentary'
 
@@ -260,6 +260,10 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
@@ -611,6 +615,15 @@ require'formatter'.setup({
 			return {
 				exe = "ormolu",
 				args = {"--mode","inplace",vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+				stdin= false
+			}
+		end
+	},
+	go = {
+		function()
+			return {
+				exe = "gofmt",
+				args = {"-w","-s",vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
 				stdin= false
 			}
 		end
