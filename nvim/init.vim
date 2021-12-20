@@ -341,17 +341,6 @@ require'nvim-tree'.setup {
   hijack_cursor       = false,
   -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually) 
   update_cwd          = false,
-  -- show lsp diagnostics in the signcolumn
-  diagnostics = {
-    enable = false,
-    icons = {
-      hint= "⊖",
-      info= "⊖",
-      warning= "⊕",
-      error= "⊗",
-    }
-  },
-
   -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
   update_focused_file = {
     -- enables the feature
@@ -398,7 +387,7 @@ require'nvim-tree'.setup {
 }
 EOF
 let g:nvim_tree_quit_on_open = 1 "0 by default, closes the tree when you open a file
-let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
+let g:nvim_tree_indent_markers = 0 "0 by default, this option shows indent markers when folders are open
 let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
 let g:nvim_tree_highlight_opened_files = 1 "0 by default, will enable folder and file icon highlight for opened files/directories.
 let g:nvim_tree_root_folder_modifier = ':e'
@@ -556,7 +545,6 @@ EOF
 
 " Provided by setup function
 nnoremap <silent> <leader>f :Format<CR>
-
 lua <<EOF
 prettier_config = {
       function()

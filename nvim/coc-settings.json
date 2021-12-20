@@ -5,7 +5,7 @@
   "diagnostic.warningSign": "",
   "diagnostic.messageTarget":"echo",
   "diagnostic.virtualText": true,
-  "diagnostic.virtualTextCurrentLineOnly": false,
+  "diagnostic.virtualTextCurrentLineOnly": true,
   "diagnostic.virtualTextPrefix": "● ",
   "suggest.enablePreview": false,
   "suggest.triggerAfterInsertEnter": true,
