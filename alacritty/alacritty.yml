@@ -27,12 +27,12 @@ colors:
     white:   '0xffffff'
 font:
   bold:
-    family: Hack  
+    family:  CaskaydiaCove Nerd Font Mono #MesloLGM Nerd Font Mono  
   italic:
-    family:  Hack 
+    family: CaskaydiaCove Nerd Font Mono #MesloLGM Nerd Font Mono 
   normal:
-    family: Hack  
-  size: 12 
+    family: CaskaydiaCove Nerd Font Mono #MesloLGM Nerd Font Mono
+  size: 13 
 window:
   opacity: 0.98
   dimensions:
