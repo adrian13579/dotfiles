@@ -9,6 +9,7 @@
   "diagnostic.virtualTextPrefix": "● ",
   "suggest.enablePreview": false,
   "suggest.triggerAfterInsertEnter": true,
+  "r.lsp.diagnostics":false,
   "languageserver": {
     "prolog-lsp": {
       "command": "swipl",
