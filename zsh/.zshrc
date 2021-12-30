@@ -102,3 +102,5 @@ fi
 eval "$(starship init zsh)"
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 export PATH="/home/adrian/.local/bin:$PATH"
+export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:$HOME/dotfiles/zsh/scripts"
