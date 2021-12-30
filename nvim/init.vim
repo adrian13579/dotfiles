@@ -55,15 +55,15 @@ call plug#end()
 " Basic settings
 syntax enable
 set number
-:augroup numbertoggle
-:  autocmd!
-:  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-:  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
-:augroup END
-:augroup nonumberterminal
-:  autocmd!
-:  autocmd TermOpen * setlocal nonumber norelativenumber
-:augroup END
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
+augroup nonumberterminal
+  autocmd!
+  autocmd TermOpen * setlocal nonumber norelativenumber
+augroup END
 set cursorline
 set pumheight=10
 set cmdheight=2
@@ -142,7 +142,7 @@ require('onedark').setup{
 	dark_sidebar = true,
 	--variable_style = "bold",
 	--function_style = "italic",
-	keyword_style =  "bold"
+	--keyword_style =  "bold"
 }
 EOF
 
@@ -425,7 +425,7 @@ let g:nvim_tree_show_icons = {
 " default will show icon by default if no icon is provided
 " default shows no icon by default 
 let g:nvim_tree_icons = {
-	\ 'default': '',
+	\ 'default': '',
     \ 'symlink': '',
     \ 'git': {
     \   'unstaged': "✗",
@@ -445,12 +445,6 @@ let g:nvim_tree_icons = {
     \   'empty_open': "",
     \   'symlink': "",
     \   'symlink_open': "",
-    \   },
-    \   'lsp': {
-    \     'hint': "⊖",
-    \     'info': "⊖",
-    \     'warning': "⊕",
-    \     'error': "⊗",
     \   }
     \ }
 
@@ -615,6 +609,7 @@ function! OnUIEnter(event) abort
 	set lines=10
   endif
 endfunction
+
 augroup firevimsettings
   autocmd!
   autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
