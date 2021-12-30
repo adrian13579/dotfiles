@@ -10,7 +10,8 @@ if [ $# = 1 ] ; then
 	fi
 else 
 	echo "Setting default regisry..."
-	npm config set registry https://registry.npmjs.org/
+	# npm config set registry https://registry.npmjs.org/
+	npm config delete registry
 	echo "Done!"
 fi
 
