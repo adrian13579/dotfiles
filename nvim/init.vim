@@ -2,6 +2,8 @@ call plug#begin()
 
 Plug 'moll/vim-bbye'
 
+Plug 'justinmk/vim-sneak'
+
 Plug 'glacambre/firenvim'
 Plug 'goerz/jupytext.vim'
 
@@ -320,7 +322,6 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
 
-
 lua << EOF
 -- following options are the default
 require'nvim-tree'.setup {
@@ -636,3 +637,8 @@ require('neoscroll').setup({
     post_hook = nil,              -- Function to run after the scrolling animation ends
 })
 EOF
+
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
