@@ -1,5 +1,7 @@
 call plug#begin()
 
+Plug 'gennaro-tedesco/nvim-peekup'
+
 Plug 'moll/vim-bbye'
 
 Plug 'justinmk/vim-sneak'
@@ -131,7 +133,15 @@ nnoremap <TAB> :bn<CR>
 nnoremap <S-TAB> :bp<CR>
 
 "delete buffers
-nnoremap <Leader>d :Bdelete<Space> 
+nnoremap <Leader>d :call DeleteBuffer() 
+function! DeleteBuffer()  
+	let g:bufname = bufname("%")
+	if &buftype ==# 'terminal'
+		execute	':Bdelete!' g:bufname 
+	else
+		execute	':Bdelete' g:bufname 
+	endif
+endfunction
 
 "Blamer settings
 let g:blamer_enabled = 1
