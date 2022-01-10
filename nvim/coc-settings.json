@@ -3,13 +3,52 @@
   "diagnostic.hintSign": "",
   "diagnostic.infoSign": "",
   "diagnostic.warningSign": "",
-  "diagnostic.messageTarget":"echo",
-  "diagnostic.virtualText": true,
-  "diagnostic.virtualTextCurrentLineOnly": true,
-  "diagnostic.virtualTextPrefix": "● ",
+  "diagnostic.messageTarget":"float",
+  "diagnostic.refreshOnInsertMode": true,
+  "diagnostic.floatConfig": {
+	  "shadow": false,
+	  "border": true,
+	  "borderhighlight": "CocFloating"
+  },
+  "suggest.floatConfig": {
+	  "border": true
+  },
+  "signature.floatConfig": {
+	  "border": true
+  },
+  "sql.database": "mysql",
+  "lua.enable": true,
   "suggest.enablePreview": false,
   "suggest.triggerAfterInsertEnter": true,
   "r.lsp.diagnostics":false,
+  "suggest.snippetIndicator":"",
+  "suggest.completionItemKindLabels": {
+    "keyword": "\uf1de",
+    "variable": "\ue79b",
+    "value": "\uf89f",
+    "operator": "\u03a8",
+    "function": "\u0192",
+    "reference": "\ufa46",
+    "constant": "\uf8fe",
+    "method": "\uf09a",
+    "struct": "\ufb44",
+    "class": "\uf0e8",
+    "interface": "\uf417",
+    "text": "\ue612",
+    "enum": "\uf435",
+    "enumMember": "\uf02b",
+    "module": "\uf40d",
+    "color": "\ue22b",
+    "property": "\ue624",
+    "field": "\uf9be",
+    "unit": "\uf475",
+    "event": "\ufacd",
+    "file": "\uf723",
+    "folder": "\uf114",
+    "snippet": "\ue60b",
+    "typeParameter": "\uf728",
+    "default": "\uf29c"
+  },
   "languageserver": {
     "prolog-lsp": {
       "command": "swipl",

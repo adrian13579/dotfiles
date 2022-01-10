@@ -133,7 +133,7 @@ nnoremap <TAB> :bn<CR>
 nnoremap <S-TAB> :bp<CR>
 
 "delete buffers
-nnoremap <Leader>d :call DeleteBuffer() 
+nnoremap <Leader>d :call DeleteBuffer() <CR>
 function! DeleteBuffer()  
 	let g:bufname = bufname("%")
 	if &buftype ==# 'terminal'
@@ -151,7 +151,7 @@ let g:blamer_show_in_insert_modes = 0
 " theme
 lua <<EOF
 require('onedark').setup{
-	dark_sidebar = true,
+	dark_sidebar = false,
 	--variable_style = "bold",
 	--function_style = "italic",
 	--keyword_style =  "bold"
@@ -349,13 +349,13 @@ require'nvim-tree'.setup {
   -- opens the tree when changing/opening a new tab if the tree wasn't previously opened
   open_on_tab         = false,
   -- hijack the cursor in the tree to put it at the start of the filename
-  hijack_cursor       = false,
+  hijack_cursor       = true,
   -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually) 
   update_cwd          = false,
   -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
   update_focused_file = {
     -- enables the feature
-    enable      = false,
+    enable      = true,
     -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
     -- only relevant when `update_focused_file.enable` is true
     update_cwd  = false,
@@ -386,10 +386,19 @@ require'nvim-tree'.setup {
       -- list of mappings to set on the tree manually
       list = {}
     },
+  diagnostics = {
+    enable = true,
+    icons = {
+      hint = "",
+      info = "",
+      warning = "",
+      error = "",
+    }
+  },
 	},
  filters = {
 	dotfiles = false,
-	custom = { '.git/','node_modules/', '.cache/' }
+	custom = { '.git/*','node_modules/*', '.cache/*' }
   },
  trash = {
     cmd = "trash",
@@ -397,7 +406,7 @@ require'nvim-tree'.setup {
   }
 }
 EOF
-let g:nvim_tree_quit_on_open = 1 "0 by default, closes the tree when you open a file
+let g:nvim_tree_quit_on_open = 0 "0 by default, closes the tree when you open a file
 let g:nvim_tree_indent_markers = 0 "0 by default, this option shows indent markers when folders are open
 let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
 let g:nvim_tree_highlight_opened_files = 1 "0 by default, will enable folder and file icon highlight for opened files/directories.
@@ -476,9 +485,9 @@ require'lualine'.setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'diff'},
+    lualine_c = {'filename','filesize'},
+    lualine_x = {'encoding', 'filetype','fileformat' },
+    lualine_y = {'diagnostics','diff'},
     lualine_z = {'location'}
   },
   inactive_sections = {
@@ -503,8 +512,8 @@ lua << EOF
 require('bufferline').setup {
   options = {
     numbers = "buffer_id",-- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
-    close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
-    right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
+    close_command = "Bdelete! %d",       -- can be a string | function, see "Mouse actions"
+    right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
     left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
     middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
     indicator_icon = '▎',
@@ -529,7 +538,7 @@ require('bufferline').setup {
     persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
     separator_style = "thick",-- | "thick" | "thin" | { 'any', 'any' },
     enforce_regular_tabs = false,-- | true,
-    always_show_bufferline = false ,--| false,
+    always_show_bufferline = true ,--| false,
     sort_by = 'id'
   }
 }
