@@ -1,19 +1,16 @@
 call plug#begin()
 
-Plug 'gennaro-tedesco/nvim-peekup'
+Plug 'chentau/marks.nvim'
+
+Plug 'glepnir/dashboard-nvim'
 
 Plug 'moll/vim-bbye'
 
 Plug 'justinmk/vim-sneak'
 
-Plug 'glacambre/firenvim'
-Plug 'goerz/jupytext.vim'
-
 Plug 'karb94/neoscroll.nvim'
 
 Plug 'alexghergh/nvim-tmux-navigation'
-
-Plug 'APZelos/blamer.nvim'
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -21,8 +18,6 @@ Plug 'tpope/vim-repeat'
 Plug 'adimit/prolog.vim'
 
 Plug 'karoliskoncevicius/vim-sendtowindow'
-
-Plug 'alvan/vim-closetag'
 
 Plug 'tomlion/vim-solidity'
 
@@ -33,9 +28,10 @@ Plug 'mhartington/formatter.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
 
 Plug 'nvim-lua/plenary.nvim'
-Plug 'lewis6991/gitsigns.nvim'
 
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'APZelos/blamer.nvim'
+Plug 'tpope/vim-fugitive'
 
 Plug 'nvim-telescope/telescope.nvim'
 
@@ -48,8 +44,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'ful1e5/onedark.nvim'
 
 Plug 'kyazdani42/nvim-tree.lua'
-
-Plug 'tpope/vim-fugitive'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
@@ -151,7 +145,9 @@ let g:blamer_show_in_insert_modes = 0
 " theme
 lua <<EOF
 require('onedark').setup{
-	dark_sidebar = false,
+	dark_sidebar = true,
+	lualine_bold = true,
+	highlight_linenumber = true
 	--variable_style = "bold",
 	--function_style = "italic",
 	--keyword_style =  "bold"
@@ -165,52 +161,6 @@ nnoremap <silent> <C-k> :lua require'nvim-tmux-navigation'.NvimTmuxNavigateUp()<
 nnoremap <silent> <C-l> :lua require'nvim-tmux-navigation'.NvimTmuxNavigateRight()<cr>
 nnoremap <silent> <C-\> :lua require'nvim-tmux-navigation'.NvimTmuxNavigateLastActive()<cr>
 nnoremap <silent> <C-Space> :lua require'nvim-tmux-navigation'.NvimTmuxNavigateNext()<cr>
-
-"Autoclosing tags
-
-" filenames like *.xml, *.html, *.xhtml, ...
-" These are the file extensions where this plugin is enabled.
-"
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.js,*.jsx,*.tsx,*.ts'
-
-" filenames like *.xml, *.xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-"
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
-
-" filetypes like xml, html, xhtml, ...
-" These are the file types where this plugin is enabled.
-"
-let g:closetag_filetypes = 'html,xhtml,phtml'
-
-" filetypes like xml, xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-"
-let g:closetag_xhtml_filetypes = 'xhtml,jsx'
-
-" integer value [0|1]
-" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
-"
-let g:closetag_emptyTags_caseSensitive = 1
-
-" dict
-" Disables auto-close if not in a "valid" region (based on filetype)
-"
-let g:closetag_regions = {
-    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
-    \ 'javascript.jsx': 'jsxRegion',
-    \ 'typescriptreact': 'jsxRegion,tsxRegion',
-    \ 'javascriptreact': 'jsxRegion',
-    \ }
-
-" Shortcut for closing tags, default is '>'
-"
-let g:closetag_shortcut = '>'
-
-" Add > at current position without closing the current tag, default is ''
-"
-"let g:closetag_close_shortcut = '<leader>>'
-
 
 " Telescope settings
 " Find files using Telescope command-line sugar.
@@ -536,7 +486,7 @@ require('bufferline').setup {
     show_close_icon = true,-- | false,
     show_tab_indicators = true,-- | false,
     persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-    separator_style = "thick",-- | "thick" | "thin" | { 'any', 'any' },
+    separator_style = "thin",-- | "thick" | "thin" | { 'any', 'any' },
     enforce_regular_tabs = false,-- | true,
     always_show_bufferline = true ,--| false,
     sort_by = 'id'
@@ -618,28 +568,6 @@ require'formatter'.setup({
 })
 EOF
 
-" jupyter text settings
-let g:jupytext_enable = 1
-let g:jupytext_fmt = 'py'
-
-" set fixed size to firenvim window
-function! OnUIEnter(event) abort
-  if 'Firenvim' ==# get(get(nvim_get_chan_info(a:event.chan), 'client', {}), 'name', '')
-    set laststatus=0
-	set lines=10
-  endif
-endfunction
-
-augroup firevimsettings
-  autocmd!
-  autocmd UIEnter * call OnUIEnter(deepcopy(v:event))
-augroup END
-
-augroup colabcelltype
-  autocmd!
-  autocmd BufEnter colab.research.google.com_*.txt set filetype=python
-augroup END
-
 
 lua <<EOF
 require('neoscroll').setup({
@@ -661,3 +589,51 @@ map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
+
+
+let g:dashboard_default_executive ='telescope'
+let g:dashboard_custom_header = [
+\ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+\ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+\ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+\ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+\ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+\ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+\]
+nmap <Leader>ss :<C-u>SessionSave<CR>
+nmap <Leader>sl :<C-u>SessionLoad<CR>
+
+
+lua<<EOF
+require'marks'.setup {
+  -- whether to map keybinds or not. default true
+  default_mappings = true,
+  -- which builtin marks to show. default {}
+  builtin_marks = { ".", "<", ">", "^" },
+  -- whether movements cycle back to the beginning/end of buffer. default true
+  cyclic = true,
+  -- whether the shada file is updated after modifying uppercase marks. default false
+  force_write_shada = false,
+  -- how often (in ms) to redraw signs/recompute mark positions. 
+  -- higher values will have better performance but may cause visual lag, 
+  -- while lower values may cause performance penalties. default 150.
+  refresh_interval = 250,
+  -- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
+  -- marks, and bookmarks.
+  -- can be either a table with all/none of the keys, or a single number, in which case
+  -- the priority applies to all marks.
+  -- default 10.
+  sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
+  -- disables mark tracking for specific filetypes. default {}
+  excluded_filetypes = {},
+  -- marks.nvim allows you to configure up to 10 bookmark groups, each with its own
+  -- sign/virttext. Bookmarks can be used to group together positions and quickly move
+  -- across multiple buffers. default sign is '!@#$%^&*()' (from 0 to 9), and
+  -- default virt_text is "".
+  bookmark_0 = {
+    sign = "⚑",
+    virt_text = "hello world"
+  },
+  mappings = {}
+}
+EOF
