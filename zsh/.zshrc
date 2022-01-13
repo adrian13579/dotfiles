@@ -70,7 +70,7 @@ export ZSH="/home/adrian/.oh-my-zsh"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode zsh-interactive-cd colored-man-pages command-not-found )
+plugins=(git vi-mode zsh-interactive-cd colored-man-pages command-not-found docker)
 
 source $ZSH/oh-my-zsh.sh
 
