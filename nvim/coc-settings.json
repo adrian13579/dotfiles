@@ -6,9 +6,7 @@
   "diagnostic.messageTarget":"float",
   "diagnostic.refreshOnInsertMode": true,
   "diagnostic.floatConfig": {
-	  "shadow": false,
-	  "border": true,
-	  "borderhighlight": "CocFloating"
+	  "border": true
   },
   "suggest.floatConfig": {
 	  "border": true
