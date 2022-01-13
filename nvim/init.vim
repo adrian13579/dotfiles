@@ -1,52 +1,38 @@
 call plug#begin()
 
-Plug 'chentau/marks.nvim'
-
-Plug 'glepnir/dashboard-nvim'
-
-Plug 'moll/vim-bbye'
-
-Plug 'justinmk/vim-sneak'
-
-Plug 'karb94/neoscroll.nvim'
-
-Plug 'alexghergh/nvim-tmux-navigation'
-
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-
-Plug 'adimit/prolog.vim'
-
-Plug 'karoliskoncevicius/vim-sendtowindow'
-
-Plug 'tomlion/vim-solidity'
-
-Plug 'b3nj5m1n/kommentary'
-
-Plug 'mhartington/formatter.nvim'
-
-Plug 'akinsho/nvim-bufferline.lua'
-
 Plug 'nvim-lua/plenary.nvim'
 
+" Tools
+Plug 'moll/vim-bbye'
+Plug 'justinmk/vim-sneak'
+Plug 'alexghergh/nvim-tmux-navigation'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'karoliskoncevicius/vim-sendtowindow'
+Plug 'b3nj5m1n/kommentary'
+Plug 'mhartington/formatter.nvim'
+Plug 'jiangmiao/auto-pairs'
+
+" Git
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'APZelos/blamer.nvim'
 Plug 'tpope/vim-fugitive'
 
+" Appearance
 Plug 'nvim-telescope/telescope.nvim'
-
+Plug 'glepnir/dashboard-nvim'
+Plug 'chentau/marks.nvim'
+Plug 'karb94/neoscroll.nvim'
+Plug 'akinsho/nvim-bufferline.lua'
 Plug 'hoob3rt/lualine.nvim'
-
-Plug 'jiangmiao/auto-pairs'
-
 Plug 'kyazdani42/nvim-web-devicons' 
-
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ful1e5/onedark.nvim'
 
-Plug 'kyazdani42/nvim-tree.lua'
-
+"Syntax and LSP
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
+Plug 'tomlion/vim-solidity'
+Plug 'adimit/prolog.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
