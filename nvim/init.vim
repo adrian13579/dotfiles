@@ -20,7 +20,6 @@ Plug 'jiangmiao/auto-pairs'
 
 " Git
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'APZelos/blamer.nvim'
 Plug 'tpope/vim-fugitive'
 
 " Appearance
@@ -36,7 +35,7 @@ Plug 'ful1e5/onedark.nvim'
 
 "Syntax and LSP
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'tomlion/vim-solidity'
+Plug 'TovarishFin/vim-solidity'
 Plug 'adimit/prolog.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
@@ -53,7 +52,6 @@ augroup nonumberterminal
   autocmd!
   autocmd TermOpen * setlocal nonumber norelativenumber
 augroup END
-set cursorline
 set pumheight=10
 set cmdheight=2
 set shiftwidth=0
@@ -138,12 +136,14 @@ lua <<EOF
 require('onedark').setup{
 	dark_sidebar = true,
 	lualine_bold = true,
-	highlight_linenumber = true
-	--variable_style = "bold",
-	--function_style = "italic",
-	--keyword_style =  "bold"
+	highlight_linenumber = true,
+	transparent_sidebar = true,
+	transparent = true
 }
 EOF
+
+hi Search guibg=peru guibg=LightGreen
+hi IncSearch guibg=peru guibg=LightGreen
 
 " Tmux integration 
 nnoremap <silent> <C-h> :lua require'nvim-tmux-navigation'.NvimTmuxNavigateLeft()<cr>
@@ -162,7 +162,21 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fw <cmd>Telescope grep_string<cr>
 
 "CoC settings
-let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver','coc-pyright']
+let g:coc_global_extensions = [
+			\'coc-css', 
+			\'coc-html', 
+			\'coc-json', 
+			\'coc-tsserver',
+			\'coc-pyright',
+			\'coc-sh',
+			\'coc-lua',
+			\'coc-vimlsp',
+			\'coc-vimtex',
+			\'coc-docker',
+			\'coc-omnisharp',
+			\'coc-go',
+			\'coc-sql']
+
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -347,8 +361,6 @@ require'nvim-tree'.setup {
   }
 }
 EOF
-let g:nvim_tree_quit_on_open = 0 "0 by default, closes the tree when you open a file
-let g:nvim_tree_indent_markers = 0 "0 by default, this option shows indent markers when folders are open
 let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
 let g:nvim_tree_highlight_opened_files = 1 "0 by default, will enable folder and file icon highlight for opened files/directories.
 let g:nvim_tree_root_folder_modifier = ':e'
@@ -445,8 +457,6 @@ require'lualine'.setup {
 EOF
 
 
-"gitsigns
-lua require('gitsigns').setup()
 
 
 lua << EOF
@@ -489,7 +499,7 @@ EOF
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ignore_install = {"jsonc"},
+  ignore_install = {"jsonc","fusion"},
   highlight = {
     enable = true,              -- false will disable the whole extension
     additional_vim_regex_highlighting = false,
@@ -594,13 +604,12 @@ let g:dashboard_custom_header = [
 nmap <Leader>ss :<C-u>SessionSave<CR>
 nmap <Leader>sl :<C-u>SessionLoad<CR>
 
-
 lua<<EOF
 require'marks'.setup {
   -- whether to map keybinds or not. default true
   default_mappings = true,
   -- which builtin marks to show. default {}
-  builtin_marks = { ".", "<", ">", "^" },
+  builtin_marks = { ".", "^" },
   -- whether movements cycle back to the beginning/end of buffer. default true
   cyclic = true,
   -- whether the shada file is updated after modifying uppercase marks. default false
@@ -628,3 +637,6 @@ require'marks'.setup {
   mappings = {}
 }
 EOF
+
+" gitsigns
+lua require('gitsigns').setup{ current_line_blame=true }

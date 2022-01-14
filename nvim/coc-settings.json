@@ -1,6 +1,7 @@
 {
-  "diagnostic.errorSign": "",
+"diagnostic.errorSign": "",
   "diagnostic.hintSign": "",
+  "diagnostic.format": "%message",
   "diagnostic.infoSign": "",
   "diagnostic.warningSign": "",
   "diagnostic.messageTarget":"float",

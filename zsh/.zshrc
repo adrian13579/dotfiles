@@ -104,3 +104,4 @@ alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir
 export PATH="/home/adrian/.local/bin:$PATH"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/dotfiles/zsh/scripts"
+export PATH="$PATH:/usr/share/dotnet"
