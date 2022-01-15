@@ -8,7 +8,7 @@ export ZSH="/home/adrian/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="refined"
+ZSH_THEME="refined"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -70,7 +70,7 @@ export ZSH="/home/adrian/.oh-my-zsh"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode zsh-interactive-cd colored-man-pages command-not-found docker)
+plugins=(git vi-mode zsh-interactive-cd colored-man-pages docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,9 +99,8 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-eval "$(starship init zsh)"
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+export PATH="$PATH:$HOME/dotfiles/zsh/scripts"
 export PATH="/home/adrian/.local/bin:$PATH"
 export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:$HOME/dotfiles/zsh/scripts"
 export PATH="$PATH:/usr/share/dotnet"
