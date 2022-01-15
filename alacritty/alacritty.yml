@@ -27,11 +27,11 @@ colors:
     white:   '0xffffff'
 font:
   bold:
-    family: CaskaydiaCove Nerd Font Mono #MesloLGM Nerd Font Mono  
+    family: MesloLGM Nerd Font Mono #CaskaydiaCove Nerd Font Mono   
   italic:
-    family: CaskaydiaCove Nerd Font Mono #MesloLGM Nerd Font Mono 
+    family: MesloLGM Nerd Font Mono #CaskaydiaCove Nerd Font Mono  
   normal:
-    family: CaskaydiaCove Nerd Font Mono #MesloLGM Nerd Font Mono
+    family: MesloLGM Nerd Font Mono #CaskaydiaCove Nerd Font Mono 
   size: 12 
 window:
   opacity: 0.98
