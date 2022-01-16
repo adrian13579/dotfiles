@@ -34,6 +34,7 @@ Plug 'ful1e5/onedark.nvim'
 
 "Syntax and LSP
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'p00f/nvim-ts-rainbow'
 Plug 'TovarishFin/vim-solidity'
 Plug 'adimit/prolog.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -361,13 +362,12 @@ require'nvim-tree'.setup {
 }
 EOF
 let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
-let g:nvim_tree_highlight_opened_files = 1 "0 by default, will enable folder and file icon highlight for opened files/directories.
+let g:nvim_tree_highlight_opened_files = 0 "0 by default, will enable folder and file icon highlight for opened files/directories.
 let g:nvim_tree_root_folder_modifier = ':e'
 let g:nvim_tree_add_trailing = 0 "0 by default, append a trailing slash to folder names
 let g:nvim_tree_group_empty = 0 " 0 by default, compact folders that only contain a single folder into one node in the file tree
 let g:nvim_tree_icon_padding = ' ' "one space by default, used for rendering the space between the icon and the filename. Use with caution, it could break rendering if you set an empty string depending on your font.
 let g:nvim_tree_symlink_arrow = ' >> ' " defaults to ' ➛ '. used as a separator between symlinks' source and target.
-let g:nvim_tree_respect_buf_cwd = 1 "0 by default, will change cwd of nvim-tree to that of new buffer's when opening nvim-tree.
 let g:nvim_tree_window_picker_exclude = {
     \   'filetype': [
     \     'packer',
@@ -423,8 +423,7 @@ nnoremap <C-n> :NvimTreeToggle<CR>
 nnoremap <leader>r :NvimTreeRefresh<CR>
 
 
-" a list of groups can be found at `:help nvim_tree_highlight`
-highlight NvimTreeFolderIcon guibg=blue
+
 
 lua << EOF
 require'lualine'.setup {
@@ -439,7 +438,7 @@ require'lualine'.setup {
     lualine_c = {'filename','filesize'},
     lualine_x = {'encoding', 'filetype','fileformat' },
     lualine_y = {'diagnostics','diff'},
-    lualine_z = {'location'}
+	lualine_z = {'location'}
   },
   inactive_sections = {
     lualine_a = {},
@@ -496,11 +495,19 @@ EOF
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = "all", 
   ignore_install = {"jsonc","fusion"},
   highlight = {
-    enable = true,              -- false will disable the whole extension
+    enable = true,       
     additional_vim_regex_highlighting = false,
+  },
+  indent = {
+    enable = true
+  },
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil, 
   },
 }
 
@@ -571,9 +578,9 @@ EOF
 lua <<EOF
 require('neoscroll').setup({
     -- All these keys will be mapped to their corresponding default scrolling animation
-    mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
+    mappings = {'<C-u>', '<C-d>', 
                 '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
-    hide_cursor = false,          -- Hide cursor while scrolling
+    hide_cursor = true,          -- Hide cursor while scrolling
     stop_eof = true,             -- Stop at <EOF> when scrolling downwards
     use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
     respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
