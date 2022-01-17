@@ -31,6 +31,7 @@ Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons' 
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ful1e5/onedark.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 "Syntax and LSP
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -645,3 +646,18 @@ EOF
 
 " gitsigns
 lua require('gitsigns').setup{ current_line_blame=true }
+
+
+" indent_blankline
+lua << EOF
+vim.opt.list = true
+vim.opt.listchars:append("space:⋅")
+vim.opt.listchars:append("eol:↴")
+
+require("indent_blankline").setup {
+    space_char_blankline = " ",
+    show_current_context = true,
+    show_current_context_start = true,
+ 	filetype_exclude = {'dashboard'}
+}
+EOF
