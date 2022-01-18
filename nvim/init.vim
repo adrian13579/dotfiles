@@ -28,7 +28,7 @@ Plug 'chentau/marks.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'hoob3rt/lualine.nvim'
-Plug 'kyazdani42/nvim-web-devicons' 
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ful1e5/onedark.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -66,7 +66,6 @@ set nobackup
 set nowritebackup
 set noshowmode
 set termguicolors 
-set cuc
 set mouse=a
 let g:mapleader = "\<Space>"
 augroup highlight_yank
@@ -126,10 +125,6 @@ function! DeleteBuffer()
 		execute	':Bdelete' g:bufname 
 	endif
 endfunction
-
-"Blamer settings
-let g:blamer_enabled = 1
-let g:blamer_show_in_insert_modes = 0
 
 
 " theme
@@ -531,7 +526,7 @@ require'formatter'.setup({
   filetype = {
 	solidity = {
 		function()
-	 		return {
+			return {
 			 exe = "npx prettier",
 			 args = {"--write",vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
 			 stdin = false
@@ -657,7 +652,7 @@ vim.opt.listchars:append("eol:↴")
 require("indent_blankline").setup {
     space_char_blankline = " ",
     show_current_context = true,
-    show_current_context_start = true,
+    show_current_context_start = false,
  	filetype_exclude = {'dashboard'}
 }
 EOF
