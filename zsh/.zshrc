@@ -70,7 +70,7 @@ ZSH_THEME="refined"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode zsh-interactive-cd colored-man-pages docker)
+plugins=(git vi-mode colored-man-pages docker gitignore zsh-navigation-tools )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,7 +100,11 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+alias obsidian="~/Obsidian-0.13.19.AppImage"
+
 export PATH="$PATH:$HOME/dotfiles/zsh/scripts"
 export PATH="/home/adrian/.local/bin:$PATH"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:/usr/share/dotnet"
+
+if [ -e /home/adrian/.nix-profile/etc/profile.d/nix.sh ]; then . /home/adrian/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
