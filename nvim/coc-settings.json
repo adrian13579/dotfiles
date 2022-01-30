@@ -1,11 +1,12 @@
 {
-"diagnostic.errorSign": "",
+  "diagnostic.errorSign": "",
   "diagnostic.hintSign": "",
   "diagnostic.format": "%message",
   "diagnostic.infoSign": "",
   "diagnostic.warningSign": "",
   "diagnostic.messageTarget":"float",
   "diagnostic.refreshOnInsertMode": true,
+	"suggest.removeDuplicateItems": true,
   "diagnostic.floatConfig": {
 	  "border": true
   },
@@ -19,7 +20,6 @@
   "lua.enable": true,
   "suggest.enablePreview": false,
   "suggest.triggerAfterInsertEnter": true,
-  "r.lsp.diagnostics":false,
   "suggest.snippetIndicator":"",
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
