@@ -35,7 +35,6 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 
 "Syntax and LSP
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'p00f/nvim-ts-rainbow'
 Plug 'TovarishFin/vim-solidity'
 Plug 'adimit/prolog.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -61,6 +60,7 @@ set smarttab
 set showtabline=2
 set clipboard=unnamedplus
 set updatetime=300
+set shortmess+=c
 set timeoutlen=500
 set nobackup
 set nowritebackup
@@ -109,7 +109,10 @@ tnoremap <Esc> <C-\><C-n>
 
 "go to normal mode from insert
 inoremap jk <ESC>
-"inoremap kj <ESC>
+
+" Have j and k navigate visual lines rather than logical ones
+nnoremap j gj
+nnoremap k gk
 
 "buffer switching
 nnoremap <TAB> :bn<CR>
@@ -492,19 +495,14 @@ EOF
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all", 
-  ignore_install = {"jsonc","fusion"},
+  ignore_install = {"jsonc","fusion","phpdoc"},
   highlight = {
     enable = true,       
     additional_vim_regex_highlighting = false,
   },
   indent = {
     enable = true
-  },
-  rainbow = {
-    enable = true,
-    extended_mode = true,
-    max_file_lines = nil, 
-  },
+  }
 }
 
 EOF
@@ -610,7 +608,7 @@ require'marks'.setup {
   -- whether to map keybinds or not. default true
   default_mappings = true,
   -- which builtin marks to show. default {}
-  builtin_marks = { ".", "^" },
+  builtin_marks = { },
   -- whether movements cycle back to the beginning/end of buffer. default true
   cyclic = true,
   -- whether the shada file is updated after modifying uppercase marks. default false
@@ -653,6 +651,6 @@ require("indent_blankline").setup {
     space_char_blankline = " ",
     show_current_context = true,
     show_current_context_start = false,
- 	filetype_exclude = {'dashboard'}
+    filetype_exclude = {'dashboard','help'}
 }
 EOF
