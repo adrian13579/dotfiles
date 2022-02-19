@@ -9,7 +9,7 @@ Plug 'nvim-lua/plenary.nvim'
 
 " Tools
 Plug 'moll/vim-bbye'
-Plug 'justinmk/vim-sneak'
+Plug 'ggandor/lightspeed.nvim'
 Plug 'alexghergh/nvim-tmux-navigation'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -23,7 +23,6 @@ Plug 'tpope/vim-fugitive'
 
 " Appearance
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'glepnir/dashboard-nvim'
 Plug 'chentau/marks.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
@@ -80,7 +79,7 @@ nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 iabbrev @@ adrianportales135@gmail.com
 
 " open current buffer in new tab
-nnoremap <Leader>m :tabnew %<CR>
+nnoremap <Leader>z :tabnew %<CR>
 
 " next item in quickfix
 nnoremap <Leader>n :cn <CR>
@@ -141,8 +140,8 @@ require('onedark').setup{
 }
 EOF
 
-hi Search guibg=peru guibg=LightGreen
-hi IncSearch guibg=peru guibg=LightGreen
+hi Search guibg=peru guibg=LightBlue
+hi IncSearch guibg=peru guibg=LightBlue
 
 " Tmux integration 
 nnoremap <silent> <C-h> :lua require'nvim-tmux-navigation'.NvimTmuxNavigateLeft()<cr>
@@ -165,6 +164,8 @@ let g:coc_global_extensions = [
 			\'coc-css', 
 			\'coc-html', 
 			\'coc-json', 
+			\'coc-xml',
+			\'coc-yaml',
 			\'coc-tsserver',
 			\'coc-pyright',
 			\'coc-sh',
@@ -295,7 +296,7 @@ require'nvim-tree'.setup {
   -- hijack netrw window on startup
   hijack_netrw        = true,
   -- open the tree when running this setup function
-  open_on_setup       = false,
+  open_on_setup       = true,
   -- will not open on setup if the filetype is in this list
   ignore_ft_on_setup  = {},
   -- closes neovim automatically when the tree is the last **WINDOW** in the view
@@ -309,7 +310,7 @@ require'nvim-tree'.setup {
   -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
   update_focused_file = {
     -- enables the feature
-    enable      = true,
+    enable      = false,
     -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
     -- only relevant when `update_focused_file.enable` is true
     update_cwd  = false,
@@ -584,24 +585,6 @@ require('neoscroll').setup({
     post_hook = nil,              -- Function to run after the scrolling animation ends
 })
 EOF
-
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
-
-
-let g:dashboard_default_executive ='telescope'
-let g:dashboard_custom_header = [
-\ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
-\ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
-\ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
-\ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
-\ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
-\ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
-\]
-nmap <Leader>ss :<C-u>SessionSave<CR>
-nmap <Leader>sl :<C-u>SessionLoad<CR>
 
 lua<<EOF
 require'marks'.setup {
