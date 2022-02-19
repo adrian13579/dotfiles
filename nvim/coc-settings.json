@@ -1,6 +1,12 @@
 {
   "diagnostic.errorSign": "",
   "diagnostic.hintSign": "",
+  "hover.floatConfig": {
+	  "border": true
+	},
+  "javascript.autoClosingTags": true,
+  "typescript.autoClosingTags": true,
+  "html.autoClosingTags": true,
   "diagnostic.format": "%message",
   "diagnostic.infoSign": "",
   "diagnostic.warningSign": "",
@@ -16,7 +22,7 @@
   "signature.floatConfig": {
 	  "border": true
   },
-  "sql.database": "mysql",
+  "sql.database": "postgresql",
   "lua.enable": true,
   "suggest.enablePreview": false,
   "suggest.triggerAfterInsertEnter": true,
