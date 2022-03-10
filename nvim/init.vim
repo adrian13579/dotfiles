@@ -327,6 +327,7 @@ require'nvim-tree'.setup {
 	height= 30,
     -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
     side = 'left',
+	hide_root_folder = true,
     -- if true the tree will resize itself after opening a file
     auto_resize = true,
     mappings = {
@@ -415,9 +416,6 @@ let g:nvim_tree_icons = {
     \ }
 
 nnoremap <C-n> :NvimTreeToggle<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
-
-
 
 
 lua << EOF
