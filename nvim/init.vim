@@ -34,7 +34,6 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 
 "Syntax and LSP
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'TovarishFin/vim-solidity'
 Plug 'adimit/prolog.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
@@ -486,16 +485,19 @@ require('bufferline').setup {
 EOF
 
 
+augroup nonumberterminal
+  autocmd!
+  autocmd BufNewFile,BufRead *.sol			setf solidity
+augroup END
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all", 
-  ignore_install = {"jsonc","fusion","phpdoc"},
   highlight = {
     enable = true,       
     additional_vim_regex_highlighting = false,
   },
   indent = {
-    enable = true
+    enable = false
   }
 }
 
