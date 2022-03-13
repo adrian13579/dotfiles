@@ -489,6 +489,9 @@ augroup nonumberterminal
   autocmd!
   autocmd BufNewFile,BufRead *.sol			setf solidity
 augroup END
+set foldlevel=20
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "all", 
