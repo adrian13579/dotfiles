@@ -1,6 +1,7 @@
 {
   "diagnostic.errorSign": "",
   "diagnostic.hintSign": "",
+  "codeLens.enable":true,
   "hover.floatConfig": {
 	  "border": true,
 	  "shadow": true
@@ -97,7 +98,14 @@
           "completionSnippetsOn": true
         }
       }
-    }
+    },
+	"solidity": {
+		"command": "solc",
+		"args": [ "--lsp" ],
+		"trace.server": "verbose",
+		"rootPatterns": [".git/"],
+		"filetypes": ["solidity"]
+        }
   }
 }
 
