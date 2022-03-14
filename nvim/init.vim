@@ -16,6 +16,7 @@ Plug 'tpope/vim-repeat'
 Plug 'b3nj5m1n/kommentary'
 Plug 'mhartington/formatter.nvim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'fannheyward/telescope-coc.nvim'
 
 " Git
 Plug 'lewis6991/gitsigns.nvim'
@@ -198,11 +199,13 @@ EOF
 
 " Telescope settings
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fw <cmd>Telescope grep_string<cr>
+nnoremap <leader>ff <cmd>Telescope find_files theme=ivy<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep theme=ivy<cr>
+nnoremap <leader>fb <cmd>Telescope buffers theme=ivy<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags theme=ivy<cr>
+nnoremap <leader>fw <cmd>Telescope grep_string theme=ivy<cr>
+
+lua require('telescope').load_extension('coc')
 
 "CoC settings
 let g:coc_global_extensions = [
@@ -341,7 +344,7 @@ require'nvim-tree'.setup {
   -- hijack netrw window on startup
   hijack_netrw        = true,
   -- open the tree when running this setup function
-  open_on_setup       = true,
+  open_on_setup       = false,
   -- will not open on setup if the filetype is in this list
   ignore_ft_on_setup  = {},
   -- closes neovim automatically when the tree is the last **WINDOW** in the view
