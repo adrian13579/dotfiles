@@ -34,7 +34,7 @@ font:
     family: MesloLGM Nerd Font Mono #CaskaydiaCove Nerd Font Mono 
   size: 12 
 window:
-  opacity: 0.98
+  opacity: 1 
   dimensions:
     columns: 100
     lines: 30
