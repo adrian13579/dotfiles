@@ -44,7 +44,7 @@ syntax enable
 set number
 augroup nonumberterminal
   autocmd!
-  autocmd TermOpen * setlocal nonumber norelativenumber
+  autocmd TermOpen * setlocal nonu
 augroup END
 set pumheight=10
 set cmdheight=2
