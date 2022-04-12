@@ -30,8 +30,10 @@ Plug 'akinsho/nvim-bufferline.lua'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'ful1e5/onedark.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
+" Themes
+Plug 'ful1e5/onedark.nvim'
+Plug 'shaunsingh/nord.nvim'
 
 "Syntax and LSP
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -125,15 +127,13 @@ endfunction
 
 
 " theme
-lua <<EOF
-require('onedark').setup{
-	dark_sidebar = true,
-	lualine_bold = true,
-	highlight_linenumber = true,
-	transparent_sidebar = true,
-	transparent = true
-}
-EOF
+" lua <<EOF
+" require('onedark').setup{
+" 	lualine_bold = true,
+" 	transparent = true
+" }
+" EOF
+colorscheme nord
 
 hi Search guibg=peru guibg=LightBlue
 hi IncSearch guibg=peru guibg=LightBlue
@@ -473,7 +473,8 @@ lua << EOF
 require'lualine'.setup {
   options = {
     icons_enabled = true,
-    theme = 'onedark-nvim',
+ --   theme = 'onedark-nvim',
+	theme = 'nord',
     disabled_filetypes = {}
   },
   sections = {
