@@ -17,6 +17,7 @@ Plug 'b3nj5m1n/kommentary'
 Plug 'mhartington/formatter.nvim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'fannheyward/telescope-coc.nvim'
+Plug 'karoliskoncevicius/vim-sendtowindow'
 
 " Git
 Plug 'lewis6991/gitsigns.nvim'
