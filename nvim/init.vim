@@ -25,7 +25,7 @@ Plug 'tpope/vim-fugitive'
 
 " Appearance
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'chentau/marks.nvim'
+Plug 'chentoast/marks.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'hoob3rt/lualine.nvim'
