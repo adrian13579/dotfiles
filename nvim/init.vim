@@ -18,6 +18,7 @@ Plug 'mhartington/formatter.nvim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'karoliskoncevicius/vim-sendtowindow'
+Plug 'goerz/jupytext.vim' 
 
 " Git
 Plug 'lewis6991/gitsigns.nvim'
@@ -685,3 +686,6 @@ require("indent_blankline").setup {
     filetype_exclude = {'dashboard','help'}
 }
 EOF
+
+let g:jupytext_fmt = 'py'
+let g:jupytext_to_ipynb_opts = '--to=ipynb --update'
