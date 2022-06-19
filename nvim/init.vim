@@ -39,6 +39,7 @@ Plug 'ful1e5/onedark.nvim'
 "Syntax and LSP
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'adimit/prolog.vim'
+Plug 'iden3/vim-circom-syntax'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
@@ -63,7 +64,7 @@ set nobackup
 set nowritebackup
 set noshowmode
 set termguicolors 
-set mouse=a
+" set mouse=a
 let g:mapleader = "\<Space>"
 augroup highlight_yank
     autocmd!

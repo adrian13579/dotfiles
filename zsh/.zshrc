@@ -108,3 +108,7 @@ export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:/usr/share/dotnet"
 
 if [ -e /home/adrian/.nix-profile/etc/profile.d/nix.sh ]; then . /home/adrian/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"

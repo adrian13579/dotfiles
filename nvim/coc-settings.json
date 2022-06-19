@@ -1,4 +1,6 @@
 {
+  "cSpellExt.enableDictionaries": ["spanish"],
+  "cSpell.language": "en,es",
   "diagnostic.errorSign": "",
   "diagnostic.hintSign": "",
   "codeLens.enable":true,
@@ -27,7 +29,7 @@
 	  "border": true,
 	  "shadow": true
   },
-  "sql.database": "postgresql",
+  "sql.database": "mysql",
   "lua.enable": true,
   "suggest.enablePreview": false,
   "suggest.triggerAfterInsertEnter": true,
@@ -106,6 +108,30 @@
 		"rootPatterns": [".git/"],
 		"filetypes": ["solidity"]
         }
-  }
+  },
+   "cSpell.userWords": [
+    "Grassman",
+    "Herbrand",
+    "Incompletitud",
+    "Kleene",
+    "Mathematica",
+    "Peano",
+    "Skolem",
+    "Zalhen",
+    "aritmetización",
+    "axiomatización",
+    "coeff",
+    "computabilidad",
+    "computacionalmente",
+    "conmutatividad",
+    "cuantificación",
+    "exponenciación",
+    "finitary",
+    "formalización",
+    "primalidad",
+    "recurrencia",
+    "recursivamente",
+    "sollen"
+  ]
 }
 
