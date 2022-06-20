@@ -223,7 +223,9 @@ let g:coc_global_extensions = [
 			\'coc-docker',
 			\'coc-omnisharp',
 			\'coc-go',
-			\'coc-sql']
+			\'coc-sql',
+			\'coc-spell-checker',
+			\ 'coc-cspell-dicts']
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -388,16 +390,7 @@ require'nvim-tree'.setup {
       -- list of mappings to set on the tree manually
       list = {}
     },
-  diagnostics = {
-    enable = true,
-    icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
-    }
-  },
-	},
+ },
  filters = {
 	dotfiles = false,
 	custom = { '.git/*','node_modules/*', '.cache/*' }
@@ -546,7 +539,7 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "all", 
+  --ensure_installed = "all", 
   highlight = {
     enable = true,       
     additional_vim_regex_highlighting = false,
