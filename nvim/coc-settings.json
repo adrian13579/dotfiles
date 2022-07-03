@@ -1,5 +1,5 @@
 {
-  "cSpell.enabled":true,
+  "cSpell.enabled":false,
   "cSpellExt.enableDictionaries": ["spanish"],
   "cSpell.language": "en,es",
   "diagnostic.errorSign": "",
@@ -77,6 +77,11 @@
       ],
       "filetypes": ["prolog"]
     },
+    "csharp-ls": {
+      "command": "csharp-ls",
+      "filetypes": ["cs"],
+      "rootPatterns": ["*.csproj", ".vim/", ".git/", ".hg/"]
+        },
     "haskell": {
       "command": "haskell-language-server-wrapper",
       "args": [

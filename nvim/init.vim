@@ -221,7 +221,6 @@ let g:coc_global_extensions = [
 			\'coc-vimlsp',
 			\'coc-vimtex',
 			\'coc-docker',
-			\'coc-omnisharp',
 			\'coc-go',
 			\'coc-sql',
 			\'coc-spell-checker',
