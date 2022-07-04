@@ -214,15 +214,13 @@ let g:coc_global_extensions = [
 			\'coc-json', 
 			\'coc-xml',
 			\'coc-yaml',
-			\'coc-tsserver',
-			\'coc-pyright',
 			\'coc-sh',
 			\'coc-lua',
 			\'coc-vimlsp',
-			\'coc-vimtex',
+			\'coc-tsserver',
+			\'coc-pyright',
 			\'coc-docker',
-			\'coc-go',
-			\'coc-sql',
+			\'coc-vimtex',
 			\'coc-spell-checker',
 			\ 'coc-cspell-dicts']
 
