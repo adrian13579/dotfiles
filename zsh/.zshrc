@@ -106,6 +106,7 @@ export PATH="$PATH:$HOME/dotfiles/zsh/scripts"
 export PATH="/home/adrian/.local/bin:$PATH"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:/usr/share/dotnet"
+export PATH="$PATH:$HOME/.dotnet/tools"
 
 if [ -e /home/adrian/.nix-profile/etc/profile.d/nix.sh ]; then . /home/adrian/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 export PYENV_ROOT="$HOME/.pyenv"
