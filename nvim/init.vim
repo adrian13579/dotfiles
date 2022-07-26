@@ -612,7 +612,7 @@ EOF
 lua <<EOF
 require('neoscroll').setup({
     -- All these keys will be mapped to their corresponding default scrolling animation
-    mappings = { '<C-f>', '<C-b>', '<C-d>', '<C-u>',
+    mappings = { '<C-d>', '<C-u>',
                 '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
     hide_cursor = true,          -- Hide cursor while scrolling
     stop_eof = true,             -- Stop at <EOF> when scrolling downwards
