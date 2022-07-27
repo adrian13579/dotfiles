@@ -16,7 +16,6 @@ Plug 'tpope/vim-repeat'
 Plug 'b3nj5m1n/kommentary'
 Plug 'mhartington/formatter.nvim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'fannheyward/telescope-coc.nvim'
 Plug 'karoliskoncevicius/vim-sendtowindow'
 Plug 'goerz/jupytext.vim' 
 
@@ -205,7 +204,6 @@ nnoremap <leader>fb <cmd>Telescope buffers theme=ivy<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags theme=ivy<cr>
 nnoremap <leader>fw <cmd>Telescope grep_string theme=ivy<cr>
 
-lua require('telescope').load_extension('coc')
 
 "CoC settings
 let g:coc_global_extensions = [
