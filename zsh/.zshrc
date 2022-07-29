@@ -116,4 +116,4 @@ export PYENV_ROOT="$HOME/.pyenv"
 
 
 # Load Angular CLI autocompletion.
-source <(ng completion script)
+# source <(ng completion script) 
