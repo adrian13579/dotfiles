@@ -17,7 +17,6 @@ Plug 'b3nj5m1n/kommentary'
 Plug 'mhartington/formatter.nvim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'karoliskoncevicius/vim-sendtowindow'
-Plug 'goerz/jupytext.vim' 
 
 " Git
 Plug 'lewis6991/gitsigns.nvim'
@@ -47,7 +46,7 @@ syntax enable
 set number
 augroup nonumberterminal
   autocmd!
-  autocmd TermOpen * setlocal nonu
+  autocmd TermOpen * setlocal nonumber
 augroup END
 set pumheight=10
 set cmdheight=2
@@ -206,6 +205,9 @@ nnoremap <leader>fw <cmd>Telescope grep_string theme=ivy<cr>
 
 
 "CoC settings
+
+nnoremap <leader>c <cmd>CocStart<cr>
+let g:coc_start_at_startup = v:false
 let g:coc_global_extensions = [
 			\'coc-css', 
 			\'coc-html', 
@@ -264,15 +266,18 @@ endfunction
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+   \ coc#pum#visible() ? coc#_select_confirm() :
+   \ coc#expandableOrJumpable() ?
+   \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+   \ <SID>check_back_space() ? "\<TAB>" :
+   \ coc#refresh()
 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" let g:coc_snippet_next = '<tab>'
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
@@ -341,7 +346,7 @@ require'nvim-tree'.setup {
   -- hijack netrw window on startup
   hijack_netrw        = true,
   -- open the tree when running this setup function
-  open_on_setup       = false,
+  open_on_setup       = true,
   -- will not open on setup if the filetype is in this list
   ignore_ft_on_setup  = {},
   -- opens the tree when changing/opening a new tab if the tree wasn't previously opened
@@ -396,12 +401,12 @@ require'nvim-tree'.setup {
 }
 EOF
 let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
-let g:nvim_tree_highlight_opened_files = 0 "0 by default, will enable folder and file icon highlight for opened files/directories.
+let g:nvim_tree_highlight_opened_files = 1 "0 by default, will enable folder and file icon highlight for opened files/directories.
 let g:nvim_tree_root_folder_modifier = ':e'
 let g:nvim_tree_add_trailing = 0 "0 by default, append a trailing slash to folder names
 let g:nvim_tree_group_empty = 0 " 0 by default, compact folders that only contain a single folder into one node in the file tree
 let g:nvim_tree_icon_padding = ' ' "one space by default, used for rendering the space between the icon and the filename. Use with caution, it could break rendering if you set an empty string depending on your font.
-let g:nvim_tree_symlink_arrow = ' >> ' " defaults to ' ➛ '. used as a separator between symlinks' source and target.
+let g:nvim_tree_symlink_arrow = ' ➛ ' " defaults to ' ➛ '. used as a separator between symlinks' source and target.
 let g:nvim_tree_window_picker_exclude = {
     \   'filetype': [
     \     'packer',
@@ -461,7 +466,7 @@ require'lualine'.setup {
   options = {
     icons_enabled = true,
     theme = 'onedark-nvim',
-    disabled_filetypes = {}
+    disabled_filetypes = {'NvimTree'}
   },
   sections = {
     lualine_a = {'mode'},
@@ -483,8 +488,6 @@ require'lualine'.setup {
   extensions = {}
 }
 EOF
-
-
 
 
 lua << EOF
@@ -552,7 +555,7 @@ prettier_config = {
       function()
         return {
           exe = "npx prettier",
-		  args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), '--single-quote'},
+		  args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
           stdin = true
         }
       end
@@ -660,7 +663,6 @@ EOF
 " gitsigns
 lua require('gitsigns').setup{ current_line_blame=true }
 
-
 " indent_blankline
 lua << EOF
 vim.opt.list = true
@@ -674,6 +676,3 @@ require("indent_blankline").setup {
     filetype_exclude = {'dashboard','help'}
 }
 EOF
-
-let g:jupytext_fmt = 'py'
-let g:jupytext_to_ipynb_opts = '--to=ipynb --update'

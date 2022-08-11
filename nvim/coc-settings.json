@@ -2,37 +2,35 @@
   "cSpell.enabled":false,
   "cSpellExt.enableDictionaries": ["spanish"],
   "cSpell.language": "en,es",
-  "diagnostic.errorSign": "",
-  "diagnostic.hintSign": "",
-  "codeLens.enable":true,
-  "hover.floatConfig": {
-	  "border": true,
-	  "shadow": true
-	},
   "javascript.autoClosingTags": true,
   "typescript.autoClosingTags": true,
   "html.autoClosingTags": true,
+  "codeLens.enable":true,
   "diagnostic.format": "%message",
+  "diagnostic.errorSign": "",
+  "diagnostic.hintSign": "",
   "diagnostic.infoSign": "",
   "diagnostic.warningSign": "",
   "diagnostic.messageTarget":"float",
   "diagnostic.refreshOnInsertMode": true,
-	"suggest.removeDuplicateItems": true,
+  "suggest.removeDuplicateItems": true,
+  "hover.floatConfig": {
+	  "border": true,
+	  "rounded": true
+	},
   "diagnostic.floatConfig": {
 	  "border": true,
-	  "shadow": true
+	  "rounded": true
   },
   "suggest.floatConfig": {
 	  "border": true,
-	  "shadow": true
+	  "rounded": true
   },
   "signature.floatConfig": {
 	  "border": true,
-	  "shadow": true
+	  "rounded": true
   },
-  "lua.enable": true,
-  "suggest.enablePreview": false,
-  "suggest.triggerAfterInsertEnter": true,
+  "suggest.virtualText": true,
   "suggest.snippetIndicator":"",
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
