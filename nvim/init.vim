@@ -32,9 +32,10 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'lukas-reineke/indent-blankline.nvim'
 " Themes
-Plug 'ful1e5/onedark.nvim'
+Plug 'navarasu/onedark.nvim'
 
 "Syntax and LSP
+Plug 'lervag/vimtex'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'adimit/prolog.vim'
 Plug 'iden3/vim-circom-syntax'
@@ -129,8 +130,11 @@ endfunction
 " theme
 lua <<EOF
 require('onedark').setup{
-	lualine_bold = true,
+	style = 'darker',
+	cmp_itemkind_reverse = true,
+	toggle_style_key = '<leader>t',
 }
+require('onedark').load()
 EOF
 
 hi Search guibg=peru guibg=LightBlue
@@ -205,7 +209,6 @@ nnoremap <leader>fw <cmd>Telescope grep_string theme=ivy<cr>
 
 
 "CoC settings
-
 nnoremap <leader>c <cmd>CocStart<cr>
 let g:coc_start_at_startup = v:false
 let g:coc_global_extensions = [
@@ -346,7 +349,7 @@ require'nvim-tree'.setup {
   -- hijack netrw window on startup
   hijack_netrw        = true,
   -- open the tree when running this setup function
-  open_on_setup       = true,
+  open_on_setup       = false,
   -- will not open on setup if the filetype is in this list
   ignore_ft_on_setup  = {},
   -- opens the tree when changing/opening a new tab if the tree wasn't previously opened
@@ -378,8 +381,9 @@ require'nvim-tree'.setup {
     -- width of the window, can be either a number (columns) or a string in `%`
     width = 30,
 	height= 30,
+	preserve_window_proportions = false,
     -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
-    side = 'left',
+    side = 'right',
 	hide_root_folder = true,
     -- if true the tree will resize itself after opening a file
     mappings = {
@@ -465,7 +469,7 @@ lua << EOF
 require'lualine'.setup {
   options = {
     icons_enabled = true,
-    theme = 'onedark-nvim',
+    theme = 'onedark',
     disabled_filetypes = {'NvimTree'}
   },
   sections = {
@@ -498,7 +502,6 @@ require('bufferline').setup {
     right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
     left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
     middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
-    indicator_icon = '▎',
     buffer_close_icon = '',
     modified_icon = '●',
     close_icon = '',
@@ -676,3 +679,6 @@ require("indent_blankline").setup {
     filetype_exclude = {'dashboard','help'}
 }
 EOF
+
+let g:tex_flavor = 'latex'
+let g:vimtex_compiler_method = 'latexmk'
