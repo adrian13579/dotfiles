@@ -8,7 +8,7 @@ export ZSH="/home/adrian/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="gozilla"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -117,3 +117,5 @@ export PYENV_ROOT="$HOME/.pyenv"
 
 # Load Angular CLI autocompletion.
 # source <(ng completion script) 
+export PATH="$PATH:/opt/mssql-tools/bin"
+
