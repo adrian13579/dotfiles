@@ -470,14 +470,15 @@ require'lualine'.setup {
   options = {
     icons_enabled = true,
     theme = 'onedark',
-    disabled_filetypes = {'NvimTree'}
+    disabled_filetypes = {},
+	globalstatus= true,
   },
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch'},
-    lualine_c = {'filename','filesize'},
+    lualine_c = {'diff','filesize'},
     lualine_x = {'encoding', 'filetype','fileformat' },
-    lualine_y = {'diagnostics','diff'},
+    lualine_y = {'diagnostics'},
 	lualine_z = {'location'}
   },
   inactive_sections = {
@@ -517,8 +518,8 @@ require('bufferline').setup {
     end,
     offsets = {{filetype = "NvimTree", text = "" , text_align =  "center" }},
     show_buffer_icons = true,-- | false, -- disable filetype icons for buffers
-    show_buffer_close_icons = true,-- | false,
-    show_close_icon = true,-- | false,
+    show_buffer_close_icons = false,-- | false,
+    show_close_icon = false,-- | false,
     show_tab_indicators = true,-- | false,
     persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
     separator_style = "thin",-- | "thick" | "thin" | { 'any', 'any' },
