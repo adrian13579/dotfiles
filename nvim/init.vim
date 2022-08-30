@@ -8,6 +8,24 @@ call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
 
 " Tools
+"
+if has('nvim')
+  function! UpdateRemotePlugins(...)
+    " Needed to refresh runtime files
+    let &rtp=&rtp
+    UpdateRemotePlugins
+  endfunction
+
+  Plug 'gelguy/wilder.nvim', { 'do': function('UpdateRemotePlugins') }
+else
+  Plug 'gelguy/wilder.nvim'
+
+  " To use Python remote plugin features in Vim, can be skipped
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+
 Plug 'moll/vim-bbye'
 Plug 'ggandor/lightspeed.nvim'
 Plug 'aserowy/tmux.nvim'
@@ -41,6 +59,25 @@ Plug 'adimit/prolog.vim'
 Plug 'iden3/vim-circom-syntax'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
+
+call wilder#setup({'modes': [':', '/', '?']})
+
+call wilder#set_option('pipeline', [
+      \   wilder#branch(
+      \     wilder#cmdline_pipeline(),
+      \     wilder#search_pipeline(),
+      \   ),
+      \ ])
+
+call wilder#set_option('renderer', wilder#popupmenu_renderer({
+      \ 'highlighter': wilder#basic_highlighter(),
+      \ 'left': [
+      \   ' ', wilder#popupmenu_devicons(),
+      \ ],
+      \ 'right': [
+      \   ' ', wilder#popupmenu_scrollbar(),
+      \ ],
+      \ }))
 
 " Basic settings
 syntax enable
