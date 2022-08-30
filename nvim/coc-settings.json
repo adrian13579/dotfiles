@@ -13,23 +13,8 @@
   "diagnostic.warningSign": "",
   "diagnostic.messageTarget":"float",
   "diagnostic.refreshOnInsertMode": true,
+  "suggest.noselect": false,
   "suggest.removeDuplicateItems": true,
-  "hover.floatConfig": {
-	  "border": true,
-	  "rounded": true
-	},
-  "diagnostic.floatConfig": {
-	  "border": true,
-	  "rounded": true
-  },
-  "suggest.floatConfig": {
-	  "border": true,
-	  "rounded": true
-  },
-  "signature.floatConfig": {
-	  "border": true,
-	  "rounded": true
-  },
   "suggest.virtualText": true,
   "suggest.snippetIndicator":"",
   "suggest.completionItemKindLabels": {
@@ -75,7 +60,7 @@
       "filetypes": ["prolog"]
     },
     "csharp-ls": {
-      "command": "csharp-ls",
+      "command": "/home/adrian/Desktop/csharp-language-server/src/CSharpLanguageServer/bin/Debug/net6.0/CSharpLanguageServer",
       "filetypes": ["cs"],
       "rootPatterns": ["*.csproj", ".vim/", ".git/", ".hg/"]
         },
