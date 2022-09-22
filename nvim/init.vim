@@ -50,7 +50,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'lukas-reineke/indent-blankline.nvim'
 " Themes
-Plug 'navarasu/onedark.nvim'
+Plug 'sainnhe/edge'
 
 "Syntax and LSP
 Plug 'lervag/vimtex'
@@ -165,14 +165,9 @@ endfunction
 
 
 " theme
-lua <<EOF
-require('onedark').setup{
-	style = 'darker',
-	cmp_itemkind_reverse = true,
-	toggle_style_key = '<leader>t',
-}
-require('onedark').load()
-EOF
+let g:edge_style = 'aura'
+let g:edge_better_performance = 1
+:colorscheme edge
 
 hi Search guibg=peru guibg=LightBlue
 hi IncSearch guibg=peru guibg=LightBlue
@@ -398,7 +393,7 @@ require'nvim-tree'.setup {
   -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
   update_focused_file = {
     -- enables the feature
-    enable      = false,
+    enable      = true,
     -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
     -- only relevant when `update_focused_file.enable` is true
     update_cwd  = false,
@@ -413,7 +408,6 @@ require'nvim-tree'.setup {
     -- the command arguments as a list
     args = {}
   },
-
   view = {
     -- width of the window, can be either a number (columns) or a string in `%`
     width = 30,
@@ -430,6 +424,17 @@ require'nvim-tree'.setup {
       -- list of mappings to set on the tree manually
       list = {}
     },
+	float = {
+	  enable = true,
+	  open_win_config = {
+		relative = "editor",
+		border = "rounded",
+		width = 200,
+		height = 25,
+		row = 1,
+		col = 1,
+	  },
+	},
  },
  filters = {
 	dotfiles = false,
@@ -506,7 +511,7 @@ lua << EOF
 require'lualine'.setup {
   options = {
     icons_enabled = true,
-    theme = 'onedark',
+    theme = 'edge',
     disabled_filetypes = {},
 	globalstatus= true,
   },
