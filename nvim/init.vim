@@ -87,7 +87,7 @@ augroup nonumberterminal
   autocmd TermOpen * setlocal nonumber
 augroup END
 set pumheight=10
-set cmdheight=2
+set cmdheight=1
 set shiftwidth=0
 set tabstop=4
 set smarttab
@@ -214,7 +214,7 @@ require("tmux").setup(
         enable_default_keybindings = true,
 
         -- prevents unzoom tmux when navigating beyond vim border
-        persist_zoom = false,
+        persist_zoom = true,
     },
     resize = {
         -- enables default keybindings (A-hjkl) for normal mode
@@ -389,7 +389,7 @@ require'nvim-tree'.setup {
   -- hijack the cursor in the tree to put it at the start of the filename
   hijack_cursor       = true,
   -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually) 
-  update_cwd          = false,
+  update_cwd          = true,
   -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
   update_focused_file = {
     -- enables the feature
@@ -411,7 +411,6 @@ require'nvim-tree'.setup {
   view = {
     -- width of the window, can be either a number (columns) or a string in `%`
     width = 30,
-	height= 30,
 	preserve_window_proportions = false,
     -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
     side = 'right',
