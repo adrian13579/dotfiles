@@ -42,6 +42,7 @@ Plug 'tpope/vim-fugitive'
 
 " Appearance
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'smartpde/telescope-recent-files'
 Plug 'chentoast/marks.nvim'
 Plug 'karb94/neoscroll.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
@@ -232,12 +233,16 @@ EOF
 
 
 " Telescope settings
+" loading extensions
+lua require("telescope").load_extension("recent_files")
+
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files theme=ivy<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep theme=ivy<cr>
 nnoremap <leader>fb <cmd>Telescope buffers theme=ivy<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags theme=ivy<cr>
 nnoremap <leader>fw <cmd>Telescope grep_string theme=ivy<cr>
+nnoremap <leader>fr <cmd>lua require('telescope').extensions.recent_files.pick()<CR>
 
 
 "CoC settings
@@ -724,3 +729,6 @@ EOF
 
 let g:tex_flavor = 'latex'
 let g:vimtex_compiler_method = 'latexmk'
+
+
+
