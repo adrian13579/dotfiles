@@ -100,7 +100,7 @@ fi
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
-alias obsidian="~/Obsidian-0.13.19.AppImage"
+alias icat="kitty +kitten icat"
 
 export PATH="$PATH:$HOME/dotfiles/zsh/scripts"
 export PATH="/home/adrian/.local/bin:$PATH"
@@ -118,4 +118,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 # Load Angular CLI autocompletion.
 # source <(ng completion script) 
 export PATH="$PATH:/opt/mssql-tools/bin"
+export PATH="$PATH:/usr/local/go/bin"
 
+export DENO_INSTALL="/home/adrian/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"

@@ -25,9 +25,9 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'moll/vim-bbye'
-Plug 'ggandor/lightspeed.nvim'
+Plug 'ggandor/leap.nvim'
 Plug 'aserowy/tmux.nvim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -50,8 +50,11 @@ Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'lukas-reineke/indent-blankline.nvim'
+
 " Themes
 Plug 'sainnhe/edge'
+Plug 'sainnhe/sonokai'
+Plug 'sainnhe/everforest'
 
 "Syntax and LSP
 Plug 'lervag/vimtex'
@@ -87,14 +90,15 @@ augroup nonumberterminal
   autocmd!
   autocmd TermOpen * setlocal nonumber
 augroup END
+set nowrap
 set pumheight=10
-set cmdheight=1
+set cmdheight=0
 set shiftwidth=0
 set tabstop=4
 set smarttab
 set showtabline=2
 set clipboard=unnamedplus
-set updatetime=300
+set updatetime=100
 set shortmess+=c
 set timeoutlen=500
 set nobackup
@@ -153,6 +157,9 @@ nnoremap k gk
 nnoremap <TAB> :bn<CR>
 nnoremap <S-TAB> :bp<CR>
 
+" reload init.vim
+nnoremap <leader>sv :source $MYVIMRC<CR>
+
 "delete buffers
 nnoremap <Leader>d :call DeleteBuffer() <CR>
 function! DeleteBuffer()  
@@ -166,13 +173,21 @@ endfunction
 
 
 " theme
-let g:edge_style = 'aura'
-let g:edge_better_performance = 1
-:colorscheme edge
+" let g:edge_style = 'neon'
+" let g:edge_better_performance = 1
+" :colorscheme edge
 
-hi Search guibg=peru guibg=LightBlue
-hi IncSearch guibg=peru guibg=LightBlue
+let g:sonokai_style = 'default'
+let g:sonokai_better_performance = 1
+colorscheme sonokai
 
+" set background=dark
+" let g:everforest_background = 'hard'
+" let g:everforest_better_performance = 1
+
+" colorscheme everforest
+
+" tmux
 lua << EOF
 require("tmux").setup(
 {
@@ -237,11 +252,11 @@ EOF
 lua require("telescope").load_extension("recent_files")
 
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files theme=ivy<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep theme=ivy<cr>
-nnoremap <leader>fb <cmd>Telescope buffers theme=ivy<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags theme=ivy<cr>
-nnoremap <leader>fw <cmd>Telescope grep_string theme=ivy<cr>
+nnoremap <leader>ff <cmd>Telescope find_files <cr>
+nnoremap <leader>fg <cmd>Telescope live_grep <cr>
+nnoremap <leader>fb <cmd>Telescope buffers <cr>
+nnoremap <leader>fh <cmd>Telescope help_tags <cr>
+nnoremap <leader>fw <cmd>Telescope grep_string <cr>
 nnoremap <leader>fr <cmd>lua require('telescope').extensions.recent_files.pick()<CR>
 
 
@@ -515,7 +530,7 @@ lua << EOF
 require'lualine'.setup {
   options = {
     icons_enabled = true,
-    theme = 'edge',
+    theme = 'sonokai',
     disabled_filetypes = {},
 	globalstatus= true,
   },
@@ -549,11 +564,7 @@ require('bufferline').setup {
     right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
     left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
     middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
-    buffer_close_icon = '',
     modified_icon = '●',
-    close_icon = '',
-    left_trunc_marker = 'ᐊ',
-    right_trunc_marker = 'ᐅ',
     max_name_length = 18,
     max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
     tab_size = 18,
@@ -568,7 +579,7 @@ require('bufferline').setup {
     show_close_icon = false,-- | false,
     show_tab_indicators = true,-- | false,
     persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-    separator_style = "thin",-- | "thick" | "thin" | { 'any', 'any' },
+    separator_style = "slant",-- | "thick" | "thin" | { 'any', 'any' },
     enforce_regular_tabs = false,-- | true,
     always_show_bufferline = true ,--| false,
     sort_by = 'id'
@@ -730,5 +741,7 @@ EOF
 let g:tex_flavor = 'latex'
 let g:vimtex_compiler_method = 'latexmk'
 
+let g:mkdp_auto_start = 1
 
-
+" Leap
+lua require('leap').add_default_mappings()
