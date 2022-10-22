@@ -41,6 +41,10 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-fugitive'
 
 " Appearance
+Plug 'rcarriga/nvim-notify'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'folke/noice.nvim'
+
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'smartpde/telescope-recent-files'
 Plug 'chentoast/marks.nvim'
@@ -65,23 +69,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 call wilder#setup({'modes': [':', '/', '?']})
-
-call wilder#set_option('pipeline', [
-      \   wilder#branch(
-      \     wilder#cmdline_pipeline(),
-      \     wilder#search_pipeline(),
-      \   ),
-      \ ])
-
-call wilder#set_option('renderer', wilder#popupmenu_renderer({
-      \ 'highlighter': wilder#basic_highlighter(),
-      \ 'left': [
-      \   ' ', wilder#popupmenu_devicons(),
-      \ ],
-      \ 'right': [
-      \   ' ', wilder#popupmenu_scrollbar(),
-      \ ],
-      \ }))
 
 " Basic settings
 syntax enable
@@ -172,14 +159,15 @@ function! DeleteBuffer()
 endfunction
 
 
-" theme
-" let g:edge_style = 'neon'
-" let g:edge_better_performance = 1
-" :colorscheme edge
 
-let g:sonokai_style = 'default'
-let g:sonokai_better_performance = 1
-colorscheme sonokai
+" theme
+let g:edge_style = 'neon'
+let g:edge_better_performance = 1
+colorscheme edge
+
+" let g:sonokai_style = 'default'
+" let g:sonokai_better_performance = 1
+" colorscheme sonokai
 
 " set background=dark
 " let g:everforest_background = 'hard'
@@ -530,7 +518,7 @@ lua << EOF
 require'lualine'.setup {
   options = {
     icons_enabled = true,
-    theme = 'sonokai',
+    theme = 'edge',
     disabled_filetypes = {},
 	globalstatus= true,
   },
@@ -745,3 +733,7 @@ let g:mkdp_auto_start = 1
 
 " Leap
 lua require('leap').add_default_mappings()
+
+" Noice 
+lua require("noice").setup()
+
