@@ -85,7 +85,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
 else
-  export EDITOR='vim'
+  export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -101,6 +101,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
 alias icat="kitty +kitten icat"
+alias vim=nvim
 
 export PATH="$PATH:$HOME/dotfiles/zsh/scripts"
 export PATH="/home/adrian/.local/bin:$PATH"
