@@ -57,8 +57,6 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Themes
 Plug 'sainnhe/edge'
-Plug 'sainnhe/sonokai'
-Plug 'sainnhe/everforest'
 
 "Syntax and LSP
 Plug 'lervag/vimtex'
@@ -68,15 +66,10 @@ Plug 'iden3/vim-circom-syntax'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
-call wilder#setup({'modes': [':', '/', '?']})
 
 " Basic settings
 syntax enable
 set number
-augroup nonumberterminal
-  autocmd!
-  autocmd TermOpen * setlocal nonumber
-augroup END
 set nowrap
 set pumheight=10
 set cmdheight=0
@@ -92,11 +85,16 @@ set nobackup
 set nowritebackup
 set noshowmode
 set termguicolors 
-" set mouse=a
 let g:mapleader = "\<Space>"
+
 augroup highlight_yank
     autocmd!
     au TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=300}
+augroup END
+
+augroup no_number_terminal
+  autocmd!
+  autocmd TermOpen * setlocal nonumber
 augroup END
 
 " open init.vim
@@ -113,7 +111,7 @@ nnoremap <Leader>n :cn <CR>
 " previous item in quickfix
 nnoremap <Leader>p :cp <CR>
 
-""use C+hjkl to move between split/vsplit panels
+" use C+hjkl to move between split/vsplit panels
 tnoremap <C-h> <C-\><C-n><C-w>h
 tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
@@ -123,24 +121,24 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 		
-"use alt+hjkl to resize window
+" use alt+hjkl to resize window
 nnoremap <M-j> :resize +2<CR>
 nnoremap <M-k> :resize -2<CR>
 nnoremap <M-h> :vertical resize +2<CR>
 nnoremap <M-l> :vertical resize -2<CR>
 
-"go to normal mode in terminal
+" go to normal mode in terminal
 tnoremap jk <C-\><C-n>  
 tnoremap <Esc> <C-\><C-n>
 
-"go to normal mode from insert
+" go to normal mode from insert
 inoremap jk <ESC>
 
 " Have j and k navigate visual lines rather than logical ones
 nnoremap j gj
 nnoremap k gk
 
-"buffer switching
+" buffer switching
 nnoremap <TAB> :bn<CR>
 nnoremap <S-TAB> :bp<CR>
 
@@ -158,82 +156,46 @@ function! DeleteBuffer()
 	endif
 endfunction
 
+" vimtex
+let g:tex_flavor = 'latex'
+let g:vimtex_compiler_method = 'latexmk'
 
+" markdown preview
+let g:mkdp_auto_start = 1
+
+" wilder
+call wilder#setup({'modes': [':', '/', '?']})
 
 " theme
-let g:edge_style = 'neon'
 let g:edge_better_performance = 1
 colorscheme edge
-
-" let g:sonokai_style = 'default'
-" let g:sonokai_better_performance = 1
-" colorscheme sonokai
-
-" set background=dark
-" let g:everforest_background = 'hard'
-" let g:everforest_better_performance = 1
-
-" colorscheme everforest
 
 " tmux
 lua << EOF
 require("tmux").setup(
 {
     copy_sync = {
-        -- enables copy sync and overwrites all register actions to
-        -- sync registers *, +, unnamed, and 0 till 9 from tmux in advance
         enable = false,
-
-        -- ignore specific tmux buffers e.g. buffer0 = true to ignore the
-        -- first buffer or named_buffer_name = true to ignore a named tmux
-        -- buffer with name named_buffer_name :)
         ignore_buffers = { empty = false },
-
-        -- TMUX >= 3.2: yanks (and deletes) will get redirected to system
-        -- clipboard by tmux
         redirect_to_clipboard = false,
-
-        -- offset controls where register sync starts
-        -- e.g. offset 2 lets registers 0 and 1 untouched
         register_offset = 0,
-
-        -- sync clipboard overwrites vim.g.clipboard to handle * and +
-        -- registers. If you sync your system clipboard without tmux, disable
-        -- this option!
         sync_clipboard = true,
-
-        -- syncs deletes with tmux clipboard as well, it is adviced to
-        -- do so. Nvim does not allow syncing registers 0 and 1 without
-        -- overwriting the unnamed register. Thus, ddp would not be possible.
         sync_deletes = true,
-
-        -- syncs the unnamed register with the first buffer entry from tmux.
         sync_unnamed = true,
     },
     navigation = {
-        -- cycles to opposite pane while navigating into the border
         cycle_navigation = true,
-
-        -- enables default keybindings (C-hjkl) for normal mode
         enable_default_keybindings = true,
-
-        -- prevents unzoom tmux when navigating beyond vim border
         persist_zoom = true,
     },
     resize = {
-        -- enables default keybindings (A-hjkl) for normal mode
         enable_default_keybindings = true,
-
-        -- sets resize steps for x axis
         resize_step_x = 1,
-
-        -- sets resize steps for y axis
         resize_step_y = 1,
     }
 }
 )
 EOF
-
 
 " Telescope settings
 " loading extensions
@@ -381,54 +343,30 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 
 
 lua << EOF
--- following options are the default
 require'nvim-tree'.setup {
-
-  -- disables netrw completely
   disable_netrw       = true,
-  -- hijack netrw window on startup
   hijack_netrw        = true,
-  -- open the tree when running this setup function
   open_on_setup       = false,
-  -- will not open on setup if the filetype is in this list
   ignore_ft_on_setup  = {},
-  -- opens the tree when changing/opening a new tab if the tree wasn't previously opened
   open_on_tab         = false,
-  -- hijack the cursor in the tree to put it at the start of the filename
   hijack_cursor       = true,
-  -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually) 
   update_cwd          = true,
-  -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
   update_focused_file = {
-    -- enables the feature
     enable      = true,
-    -- update the root directory of the tree to the one of the folder containing the file if the file is not under the current root directory
-    -- only relevant when `update_focused_file.enable` is true
     update_cwd  = false,
-    -- list of buffer names / filetypes that will not update the cwd if the file isn't found under the current root directory
-    -- only relevant when `update_focused_file.update_cwd` is true and `update_focused_file.enable` is true
     ignore_list = {'.git/**'}
   },
-  -- configuration options for the system open command (`s` in the tree by default)
   system_open = {
-    -- the command to run this, leaving nil should work in most cases
     cmd  = nil,
-    -- the command arguments as a list
     args = {}
   },
   view = {
-    -- width of the window, can be either a number (columns) or a string in `%`
     width = 30,
 	preserve_window_proportions = false,
-    -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
     side = 'right',
 	hide_root_folder = true,
-    -- if true the tree will resize itself after opening a file
     mappings = {
-      -- custom only false will merge the list with the default mappings
-      -- if true, it will only use your list to set the mappings
       custom_only = false,
-      -- list of mappings to set on the tree manually
       list = {}
     },
 	float = {
@@ -443,74 +381,19 @@ require'nvim-tree'.setup {
 	  },
 	},
  },
- filters = {
+  renderer = {
+	root_folder_modifier = ":e",
+ },
+  filters = {
 	dotfiles = false,
 	custom = { '.git/*','node_modules/*', '.cache/*' }
   },
- trash = {
+  trash = {
     cmd = "trash",
     require_confirm = true
-  }
+  },
 }
 EOF
-let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
-let g:nvim_tree_highlight_opened_files = 1 "0 by default, will enable folder and file icon highlight for opened files/directories.
-let g:nvim_tree_root_folder_modifier = ':e'
-let g:nvim_tree_add_trailing = 0 "0 by default, append a trailing slash to folder names
-let g:nvim_tree_group_empty = 0 " 0 by default, compact folders that only contain a single folder into one node in the file tree
-let g:nvim_tree_icon_padding = ' ' "one space by default, used for rendering the space between the icon and the filename. Use with caution, it could break rendering if you set an empty string depending on your font.
-let g:nvim_tree_symlink_arrow = ' ➛ ' " defaults to ' ➛ '. used as a separator between symlinks' source and target.
-let g:nvim_tree_window_picker_exclude = {
-    \   'filetype': [
-    \     'packer',
-    \     'qf'
-    \   ],
-    \   'buftype': [
-    \     'terminal'
-    \   ]
-    \ }
-" Dictionary of buffer option names mapped to a list of option values that
-" indicates to the window picker that the buffer's window should not be
-" selectable.
-let g:nvim_tree_special_files = { 'README.md': 1, 'Makefile': 1, 'MAKEFILE': 1 } " List of filenames that gets highlighted with NvimTreeSpecialFile
-let g:nvim_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 1,
-    \ 'files': 1,
-    \ 'folder_arrows': 1,
-    \ }
-"If 0, do not show the icons for one of 'git' 'folder' and 'files'
-"1 by default, notice that if 'files' is 1, it will only display
-"if nvim-web-devicons is installed and on your runtimepath.
-"if folder is 1, you can also tell folder_arrows 1 to show small arrows next to the folder icons.
-"but this will not work when you set indent_markers (because of UI conflict)
-
-" default will show icon by default if no icon is provided
-" default shows no icon by default 
-let g:nvim_tree_icons = {
-	\ 'default': '',
-    \ 'symlink': '',
-    \ 'git': {
-    \   'unstaged': "✗",
-    \   'staged': "✓",
-    \   'unmerged': "",
-    \   'renamed': "➜",
-    \   'untracked': "★",
-    \   'deleted': "",
-    \   'ignored': "◌"
-    \   },
-    \ 'folder': {
-    \   'arrow_open': "",
-    \   'arrow_closed': "",
-    \   'default': "",
-    \   'open': "",
-    \   'empty': "",
-    \   'empty_open': "",
-    \   'symlink': "",
-    \   'symlink_open': "",
-    \   }
-    \ }
-
 nnoremap <C-n> :NvimTreeToggle<CR>
 
 
@@ -547,45 +430,35 @@ EOF
 lua << EOF
 require('bufferline').setup {
   options = {
-    numbers = "buffer_id",-- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
-    close_command = "Bdelete! %d",       -- can be a string | function, see "Mouse actions"
-    right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
-    left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
-    middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
+    numbers = "buffer_id",
     modified_icon = '●',
     max_name_length = 18,
-    max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+    max_prefix_length = 15, 
     tab_size = 18,
-    diagnostics = "coc",-- | "nvim_lsp" | "coc",
+    diagnostics = "coc",
     diagnostics_update_in_insert = true,
     diagnostics_indicator = function(count, level, diagnostics_dict, context)
       return "("..count..")"
     end,
     offsets = {{filetype = "NvimTree", text = "" , text_align =  "center" }},
-    show_buffer_icons = true,-- | false, -- disable filetype icons for buffers
-    show_buffer_close_icons = false,-- | false,
-    show_close_icon = false,-- | false,
-    show_tab_indicators = true,-- | false,
-    persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-    separator_style = "slant",-- | "thick" | "thin" | { 'any', 'any' },
-    enforce_regular_tabs = false,-- | true,
-    always_show_bufferline = true ,--| false,
+    show_buffer_icons = true,
+    show_buffer_close_icons = false,
+    show_close_icon = false,
+    show_tab_indicators = true,
+    persist_buffer_sort = true, 
+    separator_style = "slant",
+    enforce_regular_tabs = false,
+    always_show_bufferline = true ,
     sort_by = 'id'
   }
 }
 EOF
 
-
-augroup nonumberterminal
-  autocmd!
-  autocmd BufNewFile,BufRead *.sol			setf solidity
-augroup END
 set foldlevel=20
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  --ensure_installed = "all", 
   highlight = {
     enable = true,       
     additional_vim_regex_highlighting = false,
@@ -661,46 +534,25 @@ EOF
 
 lua <<EOF
 require('neoscroll').setup({
-    -- All these keys will be mapped to their corresponding default scrolling animation
     mappings = { '<C-d>', '<C-u>',
                 '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
-    hide_cursor = true,          -- Hide cursor while scrolling
-    stop_eof = true,             -- Stop at <EOF> when scrolling downwards
-    use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
-    respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-    cursor_scrolls_alone = false, -- The cursor will keep on scrolling even if the window cannot scroll further
-    easing_function = nil,        -- Default easing function
-    pre_hook = nil,              -- Function to run before the scrolling animation starts
-    post_hook = nil,              -- Function to run after the scrolling animation ends
+    hide_cursor = true,         
+    stop_eof = true,             
+    use_local_scrolloff = false, 
+    respect_scrolloff = false,   
+    cursor_scrolls_alone = false,
 })
 EOF
 
 lua<<EOF
 require'marks'.setup {
-  -- whether to map keybinds or not. default true
   default_mappings = true,
-  -- which builtin marks to show. default {}
   builtin_marks = { },
-  -- whether movements cycle back to the beginning/end of buffer. default true
   cyclic = true,
-  -- whether the shada file is updated after modifying uppercase marks. default false
   force_write_shada = false,
-  -- how often (in ms) to redraw signs/recompute mark positions. 
-  -- higher values will have better performance but may cause visual lag, 
-  -- while lower values may cause performance penalties. default 150.
   refresh_interval = 250,
-  -- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
-  -- marks, and bookmarks.
-  -- can be either a table with all/none of the keys, or a single number, in which case
-  -- the priority applies to all marks.
-  -- default 10.
   sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
-  -- disables mark tracking for specific filetypes. default {}
   excluded_filetypes = {},
-  -- marks.nvim allows you to configure up to 10 bookmark groups, each with its own
-  -- sign/virttext. Bookmarks can be used to group together positions and quickly move
-  -- across multiple buffers. default sign is '!@#$%^&*()' (from 0 to 9), and
-  -- default virt_text is "".
   bookmark_0 = {
     sign = "⚑",
     virt_text = "hello world"
@@ -725,11 +577,6 @@ require("indent_blankline").setup {
     filetype_exclude = {'dashboard','help'}
 }
 EOF
-
-let g:tex_flavor = 'latex'
-let g:vimtex_compiler_method = 'latexmk'
-
-let g:mkdp_auto_start = 1
 
 " Leap
 lua require('leap').add_default_mappings()
