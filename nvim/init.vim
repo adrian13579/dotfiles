@@ -40,11 +40,6 @@ Plug 'karoliskoncevicius/vim-sendtowindow'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-fugitive'
 
-" Appearance
-Plug 'rcarriga/nvim-notify'
-Plug 'MunifTanjim/nui.nvim'
-Plug 'folke/noice.nvim'
-
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'smartpde/telescope-recent-files'
 Plug 'chentoast/marks.nvim'
@@ -161,14 +156,46 @@ let g:tex_flavor = 'latex'
 let g:vimtex_compiler_method = 'latexmk'
 
 " markdown preview
-let g:mkdp_auto_start = 1
-
-" wilder
-call wilder#setup({'modes': [':', '/', '?']})
+let g:mkdp_auto_start = 0
 
 " theme
 let g:edge_better_performance = 1
 colorscheme edge
+
+" wilder
+lua << EOF
+
+local wilder = require('wilder')
+wilder.setup({modes = {':', '/', '?'}})
+-- Disable Python remote plugin
+wilder.set_option('use_python_remote_plugin', 0)
+
+wilder.set_option('pipeline', {
+  wilder.branch(
+	wilder.cmdline_pipeline({
+	  fuzzy = 1,
+	}),
+	wilder.vim_search_pipeline()
+  )
+})
+
+wilder.set_option('renderer', wilder.renderer_mux({
+  [':'] = wilder.popupmenu_renderer({
+	highlighter = wilder.basic_highlighter(),
+	left = {
+	  ' ',
+	  wilder.popupmenu_devicons()
+	},
+	right = {
+	  ' ',
+	  wilder.popupmenu_scrollbar()
+	},
+  }),
+  ['/'] = wilder.wildmenu_renderer({
+	highlighter = wilder.basic_highlighter(),
+  }),
+}))
+EOF
 
 " tmux
 lua << EOF
@@ -225,9 +252,7 @@ let g:coc_global_extensions = [
 			\'coc-tsserver',
 			\'coc-pyright',
 			\'coc-docker',
-			\'coc-vimtex',
-			\'coc-spell-checker',
-			\ 'coc-cspell-dicts']
+			\'coc-vimtex']
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -342,6 +367,7 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
 
+nnoremap <C-n> :NvimTreeToggle<CR>
 lua << EOF
 require'nvim-tree'.setup {
   disable_netrw       = true,
@@ -394,7 +420,6 @@ require'nvim-tree'.setup {
   },
 }
 EOF
-nnoremap <C-n> :NvimTreeToggle<CR>
 
 
 lua << EOF
@@ -413,16 +438,6 @@ require'lualine'.setup {
     lualine_y = {'diagnostics'},
 	lualine_z = {'location'}
   },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {},
-  extensions = {}
 }
 EOF
 
@@ -536,10 +551,6 @@ lua <<EOF
 require('neoscroll').setup({
     mappings = { '<C-d>', '<C-u>',
                 '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
-    hide_cursor = true,         
-    stop_eof = true,             
-    use_local_scrolloff = false, 
-    respect_scrolloff = false,   
     cursor_scrolls_alone = false,
 })
 EOF
@@ -553,11 +564,6 @@ require'marks'.setup {
   refresh_interval = 250,
   sign_priority = { lower=10, upper=15, builtin=8, bookmark=20 },
   excluded_filetypes = {},
-  bookmark_0 = {
-    sign = "⚑",
-    virt_text = "hello world"
-  },
-  mappings = {}
 }
 EOF
 
@@ -580,7 +586,4 @@ EOF
 
 " Leap
 lua require('leap').add_default_mappings()
-
-" Noice 
-lua require("noice").setup()
 
