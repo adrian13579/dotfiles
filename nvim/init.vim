@@ -164,7 +164,6 @@ colorscheme edge
 
 " wilder
 lua << EOF
-
 local wilder = require('wilder')
 wilder.setup({modes = {':', '/', '?'}})
 -- Disable Python remote plugin
@@ -382,10 +381,6 @@ require'nvim-tree'.setup {
     update_cwd  = false,
     ignore_list = {'.git/**'}
   },
-  system_open = {
-    cmd  = nil,
-    args = {}
-  },
   view = {
     width = 30,
 	preserve_window_proportions = false,
@@ -492,7 +487,7 @@ prettier_config = {
       function()
         return {
           exe = "npx prettier",
-		  args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))},
+		  args = {"--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--end-of-line","lf"},
           stdin = true
         }
       end
