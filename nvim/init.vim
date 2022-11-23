@@ -51,7 +51,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Themes
-Plug 'sainnhe/edge'
+Plug 'navarasu/onedark.nvim'
 
 "Syntax and LSP
 Plug 'lervag/vimtex'
@@ -159,8 +159,12 @@ let g:vimtex_compiler_method = 'latexmk'
 let g:mkdp_auto_start = 0
 
 " theme
-let g:edge_better_performance = 1
-colorscheme edge
+let g:onedark_config = {
+    \ 'style': 'warmer',
+\}
+colorscheme onedark
+
+
 
 " wilder
 lua << EOF
@@ -421,7 +425,7 @@ lua << EOF
 require'lualine'.setup {
   options = {
     icons_enabled = true,
-    theme = 'edge',
+    theme = 'onedark',
     disabled_filetypes = {},
 	globalstatus= true,
   },
