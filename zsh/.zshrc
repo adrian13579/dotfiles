@@ -123,3 +123,5 @@ export PATH="$PATH:/usr/local/go/bin"
 
 export DENO_INSTALL="/home/adrian/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+
+export DOTNET_ROOT=/usr/lib/dotnet

@@ -1,7 +1,4 @@
 {
-  "cSpell.enabled":false,
-  "cSpellExt.enableDictionaries": ["spanish"],
-  "cSpell.language": "en,es",
   "javascript.autoClosingTags": true,
   "typescript.autoClosingTags": true,
   "html.autoClosingTags": true,
@@ -60,7 +57,10 @@
       "filetypes": ["prolog"]
     },
     "csharp-ls": {
-      "command": "/home/adrian/Desktop/csharp-language-server/src/CSharpLanguageServer/bin/Debug/net6.0/CSharpLanguageServer",
+      "command": "dotnet",
+	  "args":[
+              "/home/adrian/Desktop/csharp-language-server/src/CSharpLanguageServer/bin/Debug/net6.0/CSharpLanguageServer.dll",
+	  ],
       "filetypes": ["cs"],
       "rootPatterns": ["*.csproj", ".vim/", ".git/", ".hg/"]
         },

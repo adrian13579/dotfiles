@@ -153,6 +153,7 @@ endfunction
 
 " vimtex
 let g:tex_flavor = 'latex'
+" let g:vimtex_compiler_method = 'latexmk'
 let g:vimtex_compiler_method = 'latexmk'
 
 " markdown preview
@@ -161,6 +162,7 @@ let g:mkdp_auto_start = 0
 " theme
 let g:onedark_config = {
     \ 'style': 'warmer',
+    \'transparent': v:true,
 \}
 colorscheme onedark
 
@@ -460,7 +462,7 @@ require('bufferline').setup {
     show_close_icon = false,
     show_tab_indicators = true,
     persist_buffer_sort = true, 
-    separator_style = "slant",
+    separator_style = "thin",
     enforce_regular_tabs = false,
     always_show_bufferline = true ,
     sort_by = 'id'
