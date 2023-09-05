@@ -8,7 +8,6 @@ call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
 
 " Tools
-"
 if has('nvim')
   function! UpdateRemotePlugins(...)
     " Needed to refresh runtime files
@@ -24,22 +23,19 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'moll/vim-bbye'
-Plug 'ggandor/leap.nvim'
 Plug 'aserowy/tmux.nvim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'b3nj5m1n/kommentary'
 Plug 'mhartington/formatter.nvim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'karoliskoncevicius/vim-sendtowindow'
 
 " Git
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'tpope/vim-fugitive'
 
+" UI
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'smartpde/telescope-recent-files'
 Plug 'chentoast/marks.nvim'
@@ -54,11 +50,9 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'navarasu/onedark.nvim'
 
 "Syntax and LSP
-Plug 'lervag/vimtex'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'adimit/prolog.vim'
-Plug 'iden3/vim-circom-syntax'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'github/copilot.vim'
 call plug#end()
 
 
@@ -67,7 +61,7 @@ syntax enable
 set number
 set nowrap
 set pumheight=10
-set cmdheight=0
+set cmdheight=2
 set shiftwidth=0
 set tabstop=4
 set smarttab
@@ -161,8 +155,8 @@ let g:mkdp_auto_start = 0
 
 " theme
 let g:onedark_config = {
-    \ 'style': 'warmer',
-    \'transparent': v:true,
+	\'style': 'darker',
+    \'transparent': v:false,
 \}
 colorscheme onedark
 
@@ -244,7 +238,6 @@ nnoremap <leader>fr <cmd>lua require('telescope').extensions.recent_files.pick()
 
 "CoC settings
 nnoremap <leader>c <cmd>CocStart<cr>
-let g:coc_start_at_startup = v:false
 let g:coc_global_extensions = [
 			\'coc-css', 
 			\'coc-html', 
@@ -252,12 +245,10 @@ let g:coc_global_extensions = [
 			\'coc-xml',
 			\'coc-yaml',
 			\'coc-sh',
-			\'coc-lua',
 			\'coc-vimlsp',
 			\'coc-tsserver',
 			\'coc-pyright',
-			\'coc-docker',
-			\'coc-vimtex']
+			\'coc-docker']
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -371,14 +362,16 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
+" Mappings for CoCList
+" Show all diagnostics
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+
 
 nnoremap <C-n> :NvimTreeToggle<CR>
 lua << EOF
 require'nvim-tree'.setup {
   disable_netrw       = true,
   hijack_netrw        = true,
-  open_on_setup       = false,
-  ignore_ft_on_setup  = {},
   open_on_tab         = false,
   hijack_cursor       = true,
   update_cwd          = true,
@@ -391,7 +384,6 @@ require'nvim-tree'.setup {
     width = 30,
 	preserve_window_proportions = false,
     side = 'right',
-	hide_root_folder = true,
     mappings = {
       custom_only = false,
       list = {}
@@ -410,6 +402,7 @@ require'nvim-tree'.setup {
  },
   renderer = {
 	root_folder_modifier = ":e",
+	root_folder_label = false,
  },
   filters = {
 	dotfiles = false,
@@ -510,6 +503,7 @@ require'formatter'.setup({
 			}
 		  end
 		  },
+	html = prettier_config,
     javascript =  prettier_config,
     javascriptreact = prettier_config,
     typescriptreact = prettier_config,
@@ -584,7 +578,3 @@ require("indent_blankline").setup {
     filetype_exclude = {'dashboard','help'}
 }
 EOF
-
-" Leap
-lua require('leap').add_default_mappings()
-
