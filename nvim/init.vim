@@ -39,12 +39,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'smartpde/telescope-recent-files'
 Plug 'chentoast/marks.nvim'
-Plug 'karb94/neoscroll.nvim'
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Themes
 Plug 'navarasu/onedark.nvim'
@@ -145,13 +143,6 @@ function! DeleteBuffer()
 	endif
 endfunction
 
-" vimtex
-let g:tex_flavor = 'latex'
-" let g:vimtex_compiler_method = 'latexmk'
-let g:vimtex_compiler_method = 'latexmk'
-
-" markdown preview
-let g:mkdp_auto_start = 0
 
 " theme
 let g:onedark_config = {
@@ -382,23 +373,8 @@ require'nvim-tree'.setup {
   },
   view = {
     width = 30,
-	preserve_window_proportions = false,
+	preserve_window_proportions = true,
     side = 'right',
-    mappings = {
-      custom_only = false,
-      list = {}
-    },
-	float = {
-	  enable = true,
-	  open_win_config = {
-		relative = "editor",
-		border = "rounded",
-		width = 200,
-		height = 25,
-		row = 1,
-		col = 1,
-	  },
-	},
  },
   renderer = {
 	root_folder_modifier = ":e",
@@ -439,7 +415,6 @@ EOF
 lua << EOF
 require('bufferline').setup {
   options = {
-    numbers = "buffer_id",
     modified_icon = '●',
     max_name_length = 18,
     max_prefix_length = 15, 
@@ -455,7 +430,7 @@ require('bufferline').setup {
     show_close_icon = false,
     show_tab_indicators = true,
     persist_buffer_sort = true, 
-    separator_style = "thin",
+    separator_style = "slope",
     enforce_regular_tabs = false,
     always_show_bufferline = true ,
     sort_by = 'id'
@@ -541,15 +516,6 @@ require'formatter'.setup({
 })
 EOF
 
-
-lua <<EOF
-require('neoscroll').setup({
-    mappings = { '<C-d>', '<C-u>',
-                '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
-    cursor_scrolls_alone = false,
-})
-EOF
-
 lua<<EOF
 require'marks'.setup {
   default_mappings = true,
@@ -564,17 +530,3 @@ EOF
 
 " gitsigns
 lua require('gitsigns').setup{ current_line_blame=true }
-
-" indent_blankline
-lua << EOF
-vim.opt.list = true
-vim.opt.listchars:append("space:⋅")
-vim.opt.listchars:append("eol:↴")
-
-require("indent_blankline").setup {
-    space_char_blankline = " ",
-    show_current_context = true,
-    show_current_context_start = false,
-    filetype_exclude = {'dashboard','help'}
-}
-EOF
