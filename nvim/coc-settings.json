@@ -57,10 +57,7 @@
       "filetypes": ["prolog"]
     },
     "csharp-ls": {
-      "command": "dotnet",
-	  "args":[
-              "/home/adrian/Desktop/csharp-language-server/src/CSharpLanguageServer/bin/Debug/net6.0/CSharpLanguageServer.dll",
-	  ],
+      "command": "csharp-ls",
       "filetypes": ["cs"],
       "rootPatterns": ["*.csproj", ".vim/", ".git/", ".hg/"]
         },
@@ -96,6 +93,7 @@
 		"rootPatterns": [".git/"],
 		"filetypes": ["solidity"]
         }
-  }
+  },
+  "angular.enable-strict-mode-prompt": false
 }
 
